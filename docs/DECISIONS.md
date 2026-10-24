@@ -87,6 +87,44 @@ Each entry records what we chose, why, what else we considered, and what the cho
 
 ---
 
+## ADR-007: A curated list of URLs instead of a crawler
+
+**Decision:** Sources are a hand-picked list in `sources/ie_student.toml` (14 pages for Ireland v1), each tagged with country, visa category and tier (core or supporting).
+
+**Why:** Immigration answers must come from pages we trust. A fixed list keeps the corpus clean, makes every document's origin auditable, and keeps the load on government servers tiny. Adding a country later means adding a new list file, not changing code.
+
+**Alternatives:**
+- *Crawler that follows links:* finds more pages automatically, but pulls in irrelevant and outdated pages, is harder to keep correct, and creates more politeness and legal questions.
+- *Sitemap-based ingestion:* good for full-site coverage, but we would still need to filter to the relevant pages.
+
+**Trade-offs:** New pages the government adds are not discovered automatically; someone has to add them to the list. For a high-stakes domain we consider that a feature.
+
+---
+
+## ADR-008: Polite fetching: robots.txt, rate limiting, honest User-Agent
+
+**Decision:** Before fetching, read each site's robots.txt and skip disallowed pages. Wait 2 seconds between requests. Identify ourselves in the User-Agent with a link to the repository. If robots.txt cannot be read (network error or server error), do not fetch and report `robots_unreadable`; a missing robots.txt (404) means no restrictions.
+
+**Why:** It is the correct way to collect data from public sites, avoids harming a government service, and shows responsible engineering. Reporting "could not read robots.txt" separately from "the site said no" keeps problems diagnosable.
+
+**Alternatives:** ignoring robots.txt (rude, and risks being blocked); fetching anyway when robots.txt is unreadable (faster, but we would not know whether we were allowed).
+
+**Trade-offs:** A full run of 14 pages takes about half a minute instead of a few seconds, and a temporary robots.txt problem pauses ingestion until it is fixed.
+
+---
+
+## ADR-009: Keep raw downloads separate from cleaned text, and out of Git
+
+**Decision:** Each fetch saves the untouched response bytes to `data/raw/<country>/<id>.html` (or `.pdf`) and writes a `manifest.json` with URL, final URL, HTTP status, content type, size, SHA-256 hash and timestamp. `data/raw/` is listed in `.gitignore`.
+
+**Why:** Cleaning and chunking rules will change many times during experiments. With the raw copy saved, we re-run those steps without downloading again, and the hash feeds the freshness job. Raw pages are other people's content and large, so they do not belong in the repository.
+
+**Alternatives:** clean while downloading (saves a step, but any cleaning mistake means re-downloading); commit raw pages (gives a visible history, but bloats the repo and republishes third-party content).
+
+**Trade-offs:** Anyone cloning the repo must run the fetcher to get the data, and the snapshot is only as current as the last run.
+
+---
+
 ## Open decisions
 
 - **Embedding model and its dimension.** The schema uses `vector(1024)` as a placeholder. Changing it later requires a migration and re-embedding everything, so we will confirm the model before loading real data.

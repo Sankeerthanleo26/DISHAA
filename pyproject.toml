@@ -12,6 +12,7 @@ dependencies = [
     "pydantic-settings>=2.2",
     "psycopg[binary]>=3.2",
     "pgvector>=0.3",
+    "httpx>=0.27",
 ]
 
 [project.optional-dependencies]
@@ -22,6 +23,7 @@ dev = [
 
 [project.scripts]
 dishaa-migrate = "dishaa.migrate:main"
+dishaa-fetch = "dishaa.fetch:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dishaa"]

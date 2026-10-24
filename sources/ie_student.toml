@@ -1,0 +1,80 @@
+# Curated list of official pages for Ireland, student visas (v1).
+# Every page here is fetched politely (robots.txt, rate limit) and stored raw before any cleaning.
+# tier = "core": government immigration pages. tier = "supporting": official but not on irishimmigration.ie.
+
+[defaults]
+country = "IE"
+visa_category = "student"
+tier = "core"
+
+[[source]]
+id = "study-hub"
+title = "Coming to study in Ireland"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/"
+
+[[source]]
+id = "study-visa-options"
+title = "What are my study visa options?"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/what-are-my-study-visa-options/"
+
+[[source]]
+id = "study-options"
+title = "What are my study options?"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/what-are-my-study-options/"
+
+[[source]]
+id = "study-travel-path"
+title = "Study in Ireland travel path"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/study-in-ireland-travel-path/"
+
+[[source]]
+id = "before-after-arrive"
+title = "Before and after you arrive"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/before-and-after-you-arrive/"
+
+[[source]]
+id = "student-faq"
+title = "Frequently asked questions for students"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/frequently-asked-questions-for-students/"
+
+[[source]]
+id = "student-finances"
+title = "Information on student finances"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/what-are-my-study-options/a-fee-paying-private-primary-or-secondary-school/information-on-student-finances/"
+
+[[source]]
+id = "medical-insurance"
+title = "Private medical insurance"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/what-are-my-study-options/a-fee-paying-private-primary-or-secondary-school/private-medical-insurance/"
+
+[[source]]
+id = "registering-permission"
+title = "Registering your immigration permission"
+url = "https://www.irishimmigration.ie/registering-your-immigration-permission/"
+
+[[source]]
+id = "registration-required-documents"
+title = "Required documents for first-time registration"
+url = "https://www.irishimmigration.ie/registering-your-immigration-permission/how-to-register-your-immigration-permission-for-the-first-time/required-documents/"
+
+[[source]]
+id = "graduate-programme-1g"
+title = "Third Level Graduate Programme"
+visa_category = "graduate"
+url = "https://www.irishimmigration.ie/my-situation-has-changed-since-i-arrived-in-ireland/third-level-graduate-programme/"
+
+[[source]]
+id = "ilep-courses"
+title = "A third level course or a language course (ILEP)"
+url = "https://www.irishimmigration.ie/coming-to-study-in-ireland/what-are-my-study-options/a-third-level-course-or-a-language-course/"
+
+[[source]]
+id = "visa-application-system-guide"
+title = "Guide to using the visa application system"
+url = "https://www.irishimmigration.ie/coming-to-visit-ireland/giving-your-details-on-avats-for-a-visa-preclearance-application/"
+
+[[source]]
+id = "education-in-ireland-working"
+title = "Working in Ireland (Education in Ireland)"
+tier = "supporting"
+url = "https://www.educationinireland.com/en/living-in-ireland/working-in-ireland"

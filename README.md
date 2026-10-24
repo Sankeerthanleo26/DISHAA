@@ -12,9 +12,12 @@ pip install -e ".[dev]"
 cp .env.example .env
 docker compose up -d db      # Postgres 16 with pgvector
 dishaa-migrate               # create the schema
+dishaa-fetch                 # download the curated Irish source pages to data/raw/ie/
 pytest
 ```
 
+`dishaa-fetch` reads `sources/ie_student.toml`, obeys each site's robots.txt, waits between requests, and saves the raw pages plus a `manifest.json`. It prints one line per page: `ok`, `blocked_by_robots`, `robots_unreadable` or `error`.
+
 ## Status
 
-Week 1 in progress: foundation done (layout, database, migrations). Next: scraper and chunker for Irish sources.
+Week 1 in progress: foundation (layout, database, migrations) and the fetcher are done. Next: clean the raw pages and split them into chunks.
