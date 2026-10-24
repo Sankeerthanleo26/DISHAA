@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dishaa"
+version = "0.1.0"
+description = "Retrieval-augmented assistant for visa and immigration questions, grounded in official sources."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic-settings>=2.2",
+    "psycopg[binary]>=3.2",
+    "pgvector>=0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+dishaa-migrate = "dishaa.migrate:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dishaa"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
