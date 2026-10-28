@@ -125,8 +125,66 @@ Each entry records what we chose, why, what else we considered, and what the cho
 
 ---
 
+## ADR-010: A hand-written HTML extractor that keeps structure
+
+**Decision:** `extract.py` reads each saved page with BeautifulSoup. It finds the content area (`<main>`, then `<article>` and a few other common containers, falling back to `<body>`), removes menus, footers, sidebars, cookie banners and similar, and converts what is left into a flat list of blocks: headings (with levels), paragraphs, list items and table rows. Tables become one line per row ("Course type: X; Hours per week: 12") so each row still makes sense alone.
+
+**Why:** The chunker cuts pages along their headings, so the extractor must keep the heading structure. We also want to see exactly why each piece of text was kept or dropped, and to be able to tune the rules per site without fighting a library.
+
+**Alternatives:**
+- *trafilatura or readability-style "main content" libraries:* less code and good at articles and blogs, but they are built to return flowing prose, so headings and tables are often flattened, and the rules are hard to inspect or adjust.
+- *Converting the whole page to Markdown and chunking that:* simple, but menus and footers come along and have to be removed anyway.
+- *Rendering the page in a real browser (Playwright):* handles content built by JavaScript, but is slower, heavier, and not needed unless we find pages that need it.
+
+**Trade-offs:** More code to maintain, and the rules are general guesses about how government sites are built. **Not yet checked against the real pages** (the build environment could not reach them), so the first real run must be inspected by eye: `dishaa-chunk --show <page id>`. The extractor does not run JavaScript, so content added by scripts would be missing; the pipeline warns when a page has very little text.
+
+---
+
+## ADR-011: Hash the cleaned content, and keep "hidden" text
+
+**Decision:** A document's `content_hash` is a fingerprint of its cleaned blocks, not of the raw HTML. And we do not remove elements merely because they are marked hidden.
+
+**Why:** Raw HTML changes on every visit for reasons that have nothing to do with the rules (a footer timestamp, a rotating banner, a cookie-script version). Hashing raw bytes would make the freshness job think every page changed every day. Hashing the cleaned content only changes when the real content or structure changes (a test checks this). On hidden text: FAQ accordions usually mark their collapsed answers as hidden until clicked, but those answers are the content we want.
+
+**Alternatives:** hash the raw HTML (simpler, but constant false alarms); drop hidden elements (loses FAQ answers).
+
+**Trade-offs:** A change that only affects what we strip (for example, a note placed in a sidebar) is invisible to us. And because hidden text is kept, a page that hides genuinely irrelevant text will have it included. **Known limitation:** an accordion question that follows an `<h3>` is ranked one level below it, so it can be filed under the wrong parent heading. Accordions directly under an `<h2>` are fine. We will check the real pages.
+
+---
+
+## ADR-012: Chunk along the page's headings, within size limits
+
+**Decision:** `chunk.py` cuts each page into sections at its headings. A section that fits becomes one chunk; a longer one is split at paragraph, list-item and table-row boundaries (over-long paragraphs at sentence ends), and each new piece repeats the end of the previous one. Very small sections are merged with neighbouring sections under the same parent heading, and the merged chunk keeps their headings in its text. Every chunk records its heading path (for example "Frequently asked questions > Can I volunteer?"), and the text we will embed starts with the page title and that path.
+
+**Starting values** (all adjustable on the command line, to be tuned by experiment): maximum 500 tokens, merge sections under 60 tokens, overlap 60 tokens. Overlap repeats whole units where they fit, otherwise the last sentences of a paragraph.
+
+**Why:** Government pages are already organised by topic. Splitting where the authors split keeps one rule with its conditions in one chunk. The heading path means a chunk reading "20 hours per week" still says what it is about. Never cutting inside a table row or a sentence keeps facts intact.
+
+**Alternatives:**
+- *Fixed-size windows (every N tokens):* simplest, but cuts through the middle of rules and mixes topics.
+- *Recursive character splitters (as in LangChain):* similar to ours but blind to headings and tables.
+- *Semantic chunking (use embeddings to find topic changes):* adapts to messy text, but costs embedding calls, is hard to debug, and our pages already have structure.
+- *LLM-written chunks:* highest quality in principle, slow and costly, and the model could rewrite facts.
+
+**Trade-offs:** Chunk sizes vary, and a page with poor headings gets size-based chunks only (the pipeline warns about it). The values above are educated guesses; the evaluation harness decides them, not intuition.
+
+---
+
+## ADR-013: Approximate token counting for now
+
+**Decision:** Token counts are estimated as the larger of 1.3 x words and characters / 4. No tokenizer library is used yet.
+
+**Why:** Each embedding model counts tokens its own way, and we have not chosen one. An exact count from the wrong tokenizer would be false precision, and some tokenizer libraries download data files at first use. The estimate is within about 20% and errs towards smaller chunks.
+
+**Alternatives:** tiktoken (an OpenAI tokenizer, not the one our model will use); the chosen model's own tokenizer (best, but not available until the model is picked).
+
+**Trade-offs:** A chunk can be somewhat over or under its nominal size. Once the embedding model is chosen we replace `estimate_tokens` with its tokenizer, and nothing else changes.
+
+---
+
 ## Open decisions
 
 - **Embedding model and its dimension.** The schema uses `vector(1024)` as a placeholder. Changing it later requires a migration and re-embedding everything, so we will confirm the model before loading real data.
-- **Chunking strategy** (size, overlap, heading-based splits). To be decided by experiment with the eval set.
+- **Chunk size, overlap and merge thresholds.** Starting values are set (ADR-012); the final values come from experiments with the eval set.
+- **Per-site extraction tuning.** To be decided after the first inspection of the real pages (ADR-010).
 - **LLM and embedding provider access** (Bedrock model choices, regions, cost caps).

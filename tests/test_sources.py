@@ -28,7 +28,6 @@ def test_defaults_are_applied_and_overridable(tmp_path: Path):
     assert (a.visa_category, b.visa_category) == ("student", "graduate")
 
 
-
 DEFAULTS = 'country = "IE"\nvisa_category = "student"\ntier = "core"\n'
 
 

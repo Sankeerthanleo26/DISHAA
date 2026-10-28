@@ -166,9 +166,7 @@ def main(argv: list[str] | None = None) -> int:
         timeout=settings.request_timeout_seconds,
         follow_redirects=True,
     ) as client:
-        results = fetch_sources(
-            sources, Path(args.out), client, settings.user_agent, args.delay
-        )
+        results = fetch_sources(sources, Path(args.out), client, settings.user_agent, args.delay)
 
     for r in results:
         detail = r.error or (f"{r.bytes} bytes" if r.bytes is not None else "")

@@ -41,8 +41,9 @@ def run(handler, sources, tmp_path: Path, delay: float = 2.0):
 def html_ok(request: httpx.Request) -> httpx.Response:
     if request.url.path == "/robots.txt":
         return httpx.Response(404)
-    return httpx.Response(200, text=f"<html>{request.url.path}</html>",
-                          headers={"content-type": "text/html"})
+    return httpx.Response(
+        200, text=f"<html>{request.url.path}</html>", headers={"content-type": "text/html"}
+    )
 
 
 def test_saves_raw_files_and_manifest(tmp_path: Path):
