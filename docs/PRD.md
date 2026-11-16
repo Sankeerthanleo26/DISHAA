@@ -120,3 +120,4 @@ v0.1 is done when the Ireland and USA student pathways work end to end with inta
 - Which embedding model (Bedrock or open source) gives the best accuracy per cost? (blocks the vector dimension in the schema)
 - Should the evaluation judge be a different model from the generator?
 - How are US sources that interleave statute, regulation and policy guidance tiered for trust?
+- Should a university layer be added (a fourth intake question and a university source tier)? The founder's first 15 questions show most real questions depend on the university, state or daily life. Options and recommendation are in the [Eval Plan](EVAL_PLAN.md), section 3.
