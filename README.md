@@ -1,8 +1,8 @@
 # DISHAA
 
-*Dishaa* means "direction" in Sanskrit. It is a retrieval-augmented assistant that answers visa and immigration questions using only official sources, with citations. Version 1 covers student visas for Ireland.
+*Dishaa* means "direction" in Sanskrit. It is a retrieval-augmented assistant that answers visa and immigration questions using only official sources, with citations. Version 0.1 covers student pathways for Ireland and the USA, on an architecture built to add more destinations.
 
-Docs: [Proposal](docs/PROPOSAL.md) · [PRD](docs/PRD.md) · [Scope](docs/SCOPE.md) · [Decisions](docs/DECISIONS.md)
+Docs: [Problem Brief](docs/PROBLEM_BRIEF.md) · [Proposal](docs/PROPOSAL.md) · [PRD](docs/PRD.md) · [Scope](docs/SCOPE.md) · [Decisions](docs/DECISIONS.md)
 
 ## Local setup
 

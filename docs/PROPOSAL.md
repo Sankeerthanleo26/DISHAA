@@ -1,5 +1,7 @@
 # DISHAA: Project Proposal
 
+> **Update (2026-11-16):** This proposal is the original framing. Scope, roadmap and requirements are now defined in [Problem Brief](PROBLEM_BRIEF.md), [PRD v2](PRD.md) and [Scope](SCOPE.md); where they differ, those documents win. In particular, v0.1 covers Ireland and the USA, and the roadmap in section 4 is superseded.
+
 **Dishaa** (Sanskrit: *direction*) is a retrieval-augmented assistant that helps people navigate visa and immigration pathways using only official, cited sources.
 
 ## 1. Problem

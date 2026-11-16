@@ -1,68 +1,71 @@
-# DISHAA: Scope (v1)
+# DISHAA: Scope
 
-## In scope
+**Version:** v0.1 (supersedes the Ireland-only v1 scope; see git history)
 
-**Geography:** Ireland only.
+## Vision vs. release scope
 
-**Audience:** international students (non-EEA) planning to study in Ireland or already studying there.
+- **Vision:** anyone, from any country, considering moving to any popular destination (USA, Canada, UK, Australia, Germany, Ireland, Singapore and others) can get a clear, cited, current answer for their pathway.
+- **v0.1 release:** two destinations done properly, on an architecture that does not care which country it serves.
 
-**Topics covered:**
-- Study visa application and required documents
-- Proof of funds and financial requirements
-- Stamp 2 and registration with immigration (IRP)
-- Work-hour limits during term and holidays
-- Course and school requirements (for example approved programmes)
-- Graduate pathway (Stamp 1G)
-- Renewals and common compliance rules
+## In scope for v0.1
 
-**Sources (official only):**
-- Irish Immigration Service Delivery (irishimmigration.ie)
-- Department of Justice
-- Citizens Information (citizensinformation.ie)
-- Other official Irish government pages as needed
+**Destinations:** Ireland and the USA.
+**Origin:** any country (used as an input, not a limit).
+**Pathways (student-centred, validated against official sources before release):**
+- **USA:** Student (F-1) → initial OPT → STEM OPT → employer-sponsored H-1B → green card; and the O-1 track
+- **Ireland:** study permission (visa, Stamp 2, IRP registration) → Graduate pathway (Stamp 1G) → next work route (to be defined from official sources)
+
+**Topics inside each pathway:** application steps and documents, proof of funds, work rules, status transitions, renewals and compliance, and how employer sponsorship works at the relevant steps.
 
 **System components:**
-- Scraping, cleaning, chunking, embedding, indexing
-- Retrieval with country and visa-type filters
-- Grounded generation through a hosted LLM with citations and refusals
+- Pathway graph per country (curated data)
+- Three-question intake and pathway selection
+- Scope classifier and refusal policy
+- Source registry and curated source lists (official sources only)
+- Ingestion: fetch, clean, chunk (exceptions kept with their rules), embed, index
+- Retrieval filtered by country, pathway and step
+- Grounded generation through a hosted LLM, with citations and "last verified" dates
+- Freshness pipeline: change detection, review queue, re-index, regression evals
 - Evaluation harness and experiment log
 - FastAPI backend and a simple web frontend
-- Freshness pipeline
-- AWS deployment with logging and cost tracking
+- AWS deployment with logging, cost tracking, rate limiting and load testing
 - README, architecture diagram, demo
 
-## Out of scope for v1
+## Out of scope for v0.1
 
-- Other countries (planned: UK, Canada, UAE, then USA)
-- Work, family, refugee and asylum pathways
-- Personalized legal advice or case-specific eligibility decisions
-- User accounts, saved chats, document upload
-- Training or pretraining a model from scratch (a small separate GPT project may follow for learning)
-- Fine-tuning (optional stretch after RAG works)
-- Mobile app
-- Multilingual interface
+- Destinations other than Ireland and the USA
+- Pathways not in the graph: marriage and family routes, asylum and refugee routes, special-protection programs, and any other route. These are declined as "outside supported pathways", not denied as nonexistent
+- Individual case decisions, eligibility verdicts ("will I be approved") and legal strategy
+- Form filling, document upload, user accounts, saved chats
+- Training a model from scratch
+- Fine-tuning for knowledge (see ADR-014). Fine-tuning for behaviour (intake, refusals, citation style) is an optional later experiment
+- Mobile app, multilingual interface
 
-## Future phases
+## Rollout roadmap
 
-| Phase | Addition |
+| Release | Addition |
 |---|---|
-| 2 | UK and Canada student pathways |
-| 3 | UAE |
-| 4 | USA (F-1 and OPT first) |
-| 5 | Worker, family and refugee pathways |
-| Stretch | Eligibility checker (rules engine plus LLM explanation), LoRA fine-tune vs plain RAG comparison |
+| v0.1 | Ireland + USA student pathways, full freshness pipeline |
+| v0.2 | Canada, UK (proof that a new country is config + graph + evals) |
+| v0.3 | Australia, Germany, Singapore |
+| Later | Worker pathways, other visa types, more destinations |
+| Stretch | Eligibility checker (rules engine plus LLM explanation); behaviour fine-tune compared with prompting |
 
-## Definition of done (v1)
+The earlier UAE phase is dropped from the near-term roadmap in favour of the destinations above; it can return when there is demand.
 
-- Public HTTPS URL answering Ireland student visa questions with citations
-- Eval report with metrics and at least three documented experiments
-- Freshness job running on a schedule
-- README with architecture, decisions, failures and results
-- Repository public with a clear commit history
+## Definition of done (v0.1)
+
+- Public HTTPS URL answering Ireland and USA student-pathway questions with citations and "last verified" dates
+- Intake and guardrails working: unclear paths trigger clarification, out-of-pathway questions are refused
+- Eval report on a 50+ question set including exception traps, refusals and cross-country contamination, with at least three documented experiments
+- Freshness pipeline running on a schedule, with a working review queue, change log and regression gate; at least one real or simulated source change taken through the full loop
+- Load test result and a monitored cost cap
+- README with architecture, decisions, failures and results; public repository with clear history
 
 ## Ground rules
 
-- Official sources only; every claim cites a source
+- Official sources only; every claim cites a source with its verification date
 - When unsure, say so and link to the official page
 - Not legal advice, and the interface says so
-- Ireland works end to end before any new country is added
+- Exceptions travel with their rules
+- A country is not "supported" until its pathway graph, sources and eval questions are complete

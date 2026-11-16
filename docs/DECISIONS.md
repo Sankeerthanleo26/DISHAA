@@ -188,3 +188,59 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - **Chunk size, overlap and merge thresholds.** Starting values are set (ADR-012); the final values come from experiments with the eval set.
 - **Per-site extraction tuning.** To be decided after the first inspection of the real pages (ADR-010).
 - **LLM and embedding provider access** (Bedrock model choices, regions, cost caps).
+
+---
+
+## ADR-014: Knowledge lives in documents, not model weights; fine-tune for behaviour at most
+
+**Decision:** Do not fine-tune for factual knowledge. All immigration facts come from retrieved, cited documents. If we ever fine-tune, it is only for behaviour: intake questions, refusals, citation style.
+
+**Why:** Immigration rules change. Facts baked into weights go stale silently, cannot be cited, and cannot be audited, and every policy change would need retraining and re-evaluation. Documents can be updated, versioned and diffed. This extends ADR-001.
+
+**Alternatives:**
+- *Fine-tune on visa text:* may improve tone and domain vocabulary, but stale-fact risk is the exact problem we are solving.
+- *Prompt only with no retrieval:* no sources, no freshness.
+
+**Trade-offs:** Quality depends on retrieval and chunking quality, so those need most of our evaluation effort. A behaviour fine-tune stays available as an experiment compared against plain prompting.
+
+---
+
+## ADR-015: Global vision, staged rollout, country-agnostic architecture
+
+**Decision:** The product vision covers any origin to any popular destination, but each release fully covers a small number of destinations. v0.1 is Ireland (simple, slow-changing) plus the USA (large, fast-changing). Everything country-specific lives in config and data (source list, pathway graph, eval questions), not code.
+
+**Why:** A half-covered country gives wrong answers by omission, which is the failure we exist to prevent. Pairing one simple and one hard destination tests both the basic pipeline and the freshness problem in a single release. It also forces the country-agnostic design that makes later countries cheap.
+
+**Alternatives:**
+- *Ireland only first:* easiest, but never tests freshness on a hard, fast-moving corpus.
+- *Many countries shallowly:* looks impressive, but quality and trust suffer, and evaluation becomes impossible to keep honest.
+
+**Trade-offs:** USA content raises source-curation and update effort in v0.1. Documented in the PRD risk list.
+
+---
+
+## ADR-016: Curated pathway graphs with an intake, plus a scope allowlist
+
+**Decision:** Each destination has a curated pathway graph (ordered steps and branches, for example Student → F-1 → OPT → STEM OPT → H-1B → green card, or O-1). A three-question intake (origin, destination, degree) selects a pathway. Retrieval is filtered to the selected pathway and step. Questions outside the graph are refused.
+
+**Why:** Free-form retrieval over a large corpus produces information overload and conflicting sources. Selecting the path first shrinks what can be retrieved, lowers contamination between routes, and makes the refusal rule simple and testable: if it is not in the graph, it is out of scope.
+
+**Alternatives:**
+- *Pure semantic retrieval over everything:* simpler, but exactly the overload we are removing.
+- *LLM-inferred pathways at runtime:* flexible, but not auditable, and it can invent routes.
+
+**Trade-offs:** Graphs are hand-maintained and can themselves go stale, so they go through the same review process as sources. Narrow scope means some legitimate questions are declined by design. Refusals must say "outside supported pathways", never imply that a route does not exist.
+
+---
+
+## ADR-017: Changed sources go through review before they are served as current
+
+**Decision (proposed):** A detected change in a core-tier source creates a review-queue entry. Until a human approves it, answers relying on that page carry an "update pending review" warning. Approval triggers a regression run of the eval set, and failing evals block the change.
+
+**Why:** A silent scraper error or a misparsed page could change answers in a high-stakes domain. Human review plus automatic regression tests keeps the speed of automation without trusting it blindly.
+
+**Alternatives:**
+- *Auto-publish all changes:* fastest, but a bad parse reaches users.
+- *Block everything until reviewed:* safest, but the system serves outdated rules during review.
+
+**Trade-offs:** Review is manual work and a bottleneck. Supporting-tier sources may be auto-approved later. Status: **proposed**, to be confirmed in the design doc.
