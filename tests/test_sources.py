@@ -5,6 +5,7 @@ import pytest
 from dishaa.sources import load_sources
 
 REAL_FILE = Path(__file__).resolve().parents[1] / "sources" / "ie_student.toml"
+US_FILE = Path(__file__).resolve().parents[1] / "sources" / "us_student.toml"
 
 
 def test_real_ireland_list_is_valid():
@@ -56,3 +57,31 @@ def test_bad_files_are_rejected(tmp_path: Path, body: str, message: str):
     f.write_text(body)
     with pytest.raises(ValueError, match=message):
         load_sources(f)
+
+
+def test_real_usa_list_is_valid():
+    sources = load_sources(US_FILE)
+    assert len(sources) == 33
+    assert len({s.id for s in sources}) == 33
+    assert all(s.url.startswith("https://") for s in sources)
+    assert {s.country for s in sources} == {"US"}
+    assert {s.tier for s in sources} == {"core", "supporting"}
+    assert sum(s.tier == "supporting" for s in sources) == 8
+    assert {s.visa_category for s in sources} == {
+        "f1-student", "f1-employment", "practical-training", "opt", "stem-opt",
+        "h1b", "o1", "green-card", "pathway-overview",
+    }
+
+
+def test_us_and_ireland_ids_do_not_collide():
+    ids = [s.id for s in load_sources(REAL_FILE)] + [s.id for s in load_sources(US_FILE)]
+    assert len(ids) == len(set(ids))
+
+
+def test_no_pdfs_or_dated_posts_in_lists():
+    import re
+
+    for path in (REAL_FILE, US_FILE):
+        for s in load_sources(path):
+            assert not s.url.lower().endswith(".pdf"), s.id
+            assert not re.search(r"/20\d\d/\d\d/", s.url), s.id

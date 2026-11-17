@@ -17,6 +17,7 @@
 | R7 | Cross-country contamination (for example an Irish rule cited for a US question) | M | H | Country, pathway and step filters at retrieval; contamination evals with a zero-failure gate | Contamination eval failures; citations whose country differs from intake |
 | R8 | Wrongly implying a route does not exist when we just do not support it | M | M | Refusal wording says "outside the pathways Dishaa supports" (FR-7) | Refusal-wording tests |
 | R9 | Seen as legal advice, or a user relies on an answer for a case decision | M | H | "Not legal advice" notice; no eligibility verdicts; pointers to official channels and qualified professionals | Case-decision refusal evals; user feedback |
+| R21 | Official pages contradict each other: older pages describe a superseded rule while a newer page describes the replacement (see [Source Registry](SOURCE_REGISTRY.md) 6a) | H | H | Record page age per source; read-in-full rule before a page becomes an eval fact; conflict rule in the review queue (newer, more specific official source wins, and the conflict is shown to the user as "sources differ"); exclude dated posts and legacy guides | Conflicting-source flags; contradiction cases in the eval set |
 
 ## Data and engineering risks
 

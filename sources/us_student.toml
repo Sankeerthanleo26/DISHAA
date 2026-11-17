@@ -1,0 +1,221 @@
+# Curated list of official pages for the USA, student pathway through to green card (v0.1).
+# Same rules as the Ireland list: official domains only, fetched politely (robots.txt, rate limit),
+# stored raw before any cleaning. HTML pages only; PDFs are deferred until the extractor supports them.
+# tier = "core": the page states the rule. tier = "supporting": regulation or policy text, overviews, news.
+# visa_category names the pathway step: f1-student, f1-employment, practical-training, opt, stem-opt,
+# h1b, o1, green-card, pathway-overview.
+# Human-readable metadata (owner, page age, notes, candidates left out) lives in docs/SOURCE_REGISTRY.md.
+
+[defaults]
+country = "US"
+visa_category = "f1-student"
+tier = "core"
+
+# --- F-1 student: visa application, forms, fees, maintaining status ---------------------------
+
+[[source]]
+id = "us-student-visa"
+title = "Student Visa (U.S. Department of State)"
+url = "https://travel.state.gov/content/travel/en/us-visas/study/student-visa.html"
+
+[[source]]
+id = "us-ds160"
+title = "DS-160: Online Nonimmigrant Visa Application"
+url = "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/forms/ds-160-online-nonimmigrant-visa-application.html"
+
+[[source]]
+id = "us-ds160-faq"
+title = "DS-160: Frequently Asked Questions"
+url = "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/forms/ds-160-online-nonimmigrant-visa-application/ds-160-faqs.html"
+
+[[source]]
+id = "us-visa-fees"
+title = "Fees for Visa Services"
+url = "https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/fees-visa-services.html"
+
+[[source]]
+id = "us-sevis-fee-faq"
+title = "I-901 SEVIS Fee Frequently Asked Questions"
+url = "https://www.ice.gov/sevis/i901/faq"
+
+[[source]]
+id = "us-sits-form-i20"
+title = "Students and the Form I-20"
+url = "https://studyinthestates.dhs.gov/students/prepare/students-and-the-form-i-20"
+
+[[source]]
+id = "us-sits-maintaining-status"
+title = "Maintaining Status"
+url = "https://studyinthestates.dhs.gov/students/maintaining-status"
+
+[[source]]
+id = "us-sits-full-course"
+title = "Full Course of Study"
+tier = "supporting"
+url = "https://studyinthestates.dhs.gov/students/study/full-course-of-study"
+
+[[source]]
+id = "us-sits-fixed-period-rule-faq"
+title = "Final Rule: Fixed Time Period of Admission and Extension of Stay Procedure FAQ"
+url = "https://studyinthestates.dhs.gov/final-rule-establishing-a-fixed-time-period-of-admission-and-an-extension-of-stay-procedure-faq"
+
+[[source]]
+id = "us-vetting-announcement"
+title = "Announcement of Expanded Screening and Vetting for Visa Applicants"
+tier = "supporting"
+url = "https://travel.state.gov/content/travel/en/News/visas-news/announcement-of-expanded-screening-and-vetting-for-visa-applicants.html"
+
+[[source]]
+id = "us-ice-sevp-regs"
+title = "SEVP Governing Regulations for Students and Schools (8 CFR 214.2(f))"
+tier = "supporting"
+url = "https://www.ice.gov/sevis/schools/reg"
+
+# --- F-1 employment and practical training (on-campus, CPT) -------------------------------------
+
+[[source]]
+id = "us-sits-working"
+title = "Working in the United States"
+visa_category = "f1-employment"
+url = "https://studyinthestates.dhs.gov/students/work/working-in-the-united-states"
+
+[[source]]
+id = "us-uscis-students-employment"
+title = "Students and Employment (USCIS)"
+visa_category = "f1-employment"
+url = "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/students-and-employment"
+
+[[source]]
+id = "us-sits-practical-training"
+title = "Applying for Practical Training"
+visa_category = "practical-training"
+url = "https://studyinthestates.dhs.gov/students/work/applying-for-practical-training"
+
+[[source]]
+id = "us-ice-practical-training"
+title = "Practical Training (ICE SEVP)"
+visa_category = "practical-training"
+url = "https://www.ice.gov/sevis/practical-training"
+
+[[source]]
+id = "us-uscis-pm-practical-training"
+title = "USCIS Policy Manual, Volume 2, Part F, Chapter 5: Practical Training"
+visa_category = "practical-training"
+tier = "supporting"
+url = "https://www.uscis.gov/policy-manual/volume-2-part-f-chapter-5"
+
+# --- OPT and STEM OPT -----------------------------------------------------------------------------
+
+[[source]]
+id = "us-uscis-opt"
+title = "Optional Practical Training (OPT) for F-1 Students"
+visa_category = "opt"
+url = "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-opt-for-f-1-students"
+
+[[source]]
+id = "us-uscis-stem-opt"
+title = "Optional Practical Training Extension for STEM Students (STEM OPT)"
+visa_category = "stem-opt"
+url = "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-extension-for-stem-students-stem-opt"
+
+[[source]]
+id = "us-sits-stem-opt-hub"
+title = "STEM OPT Hub"
+visa_category = "stem-opt"
+url = "https://studyinthestates.dhs.gov/stem-opt-hub"
+
+[[source]]
+id = "us-sits-stem-opt-eligibility"
+title = "Students: Determining STEM OPT Extension Eligibility"
+visa_category = "stem-opt"
+url = "https://studyinthestates.dhs.gov/stem-opt-hub/for-students/students-determining-stem-opt-extension-eligibility"
+
+[[source]]
+id = "us-sits-stem-opt-faq"
+title = "STEM OPT Frequently Asked Questions"
+visa_category = "stem-opt"
+url = "https://studyinthestates.dhs.gov/stem-opt-hub/additional-resources/stem-opt-frequently-asked-questions"
+
+# --- H-1B -----------------------------------------------------------------------------------------
+
+[[source]]
+id = "us-uscis-h1b"
+title = "H-1B Specialty Occupations"
+visa_category = "h1b"
+url = "https://www.uscis.gov/working-in-the-united-states/h-1b-specialty-occupations"
+
+[[source]]
+id = "us-uscis-h1b-cap"
+title = "H-1B Cap Season"
+visa_category = "h1b"
+url = "https://www.uscis.gov/working-in-the-united-states/temporary-workers/h-1b-specialty-occupations/h-1b-cap-season"
+
+# --- O-1 ------------------------------------------------------------------------------------------
+
+[[source]]
+id = "us-uscis-o1"
+title = "O-1 Visa: Individuals with Extraordinary Ability or Achievement"
+visa_category = "o1"
+url = "https://www.uscis.gov/working-in-the-united-states/temporary-workers/o-1-visa-individuals-with-extraordinary-ability-or-achievement"
+
+[[source]]
+id = "us-uscis-pm-o1"
+title = "USCIS Policy Manual, Volume 2, Part M, Chapter 4: O-1 Beneficiaries"
+visa_category = "o1"
+tier = "supporting"
+url = "https://www.uscis.gov/policy-manual/volume-2-part-m-chapter-4"
+
+# --- Green card (employment-based) ----------------------------------------------------------------
+
+[[source]]
+id = "us-uscis-gc-categories"
+title = "Green Card Eligibility Categories"
+visa_category = "green-card"
+url = "https://www.uscis.gov/green-card/green-card-eligibility-categories"
+
+[[source]]
+id = "us-uscis-gc-employment"
+title = "Green Card for Employment-Based Immigrants"
+visa_category = "green-card"
+url = "https://www.uscis.gov/green-card/green-card-eligibility/green-card-for-employment-based-immigrants"
+
+[[source]]
+id = "us-uscis-eb1"
+title = "Employment-Based Immigration: First Preference EB-1"
+visa_category = "green-card"
+url = "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-first-preference-eb-1"
+
+[[source]]
+id = "us-uscis-eb2"
+title = "Employment-Based Immigration: Second Preference EB-2"
+visa_category = "green-card"
+url = "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-second-preference-eb-2"
+
+[[source]]
+id = "us-uscis-eb3"
+title = "Employment-Based Immigration: Third Preference EB-3"
+visa_category = "green-card"
+url = "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-third-preference-eb-3"
+
+# --- Pathway overviews (used to draft and check the pathway graph) -------------------------------
+
+[[source]]
+id = "us-uscis-stem-options"
+title = "Options for Alien STEM Professionals to Work in the United States"
+visa_category = "pathway-overview"
+tier = "supporting"
+url = "https://www.uscis.gov/working-in-the-united-states/options-for-alien-stem-professionals-to-work-in-the-united-states"
+
+[[source]]
+id = "us-uscis-stem-nonimmigrant"
+title = "Nonimmigrant Pathways for STEM Employment in the United States"
+visa_category = "pathway-overview"
+tier = "supporting"
+url = "https://www.uscis.gov/working-in-the-united-states/stem-employment-pathways/nonimmigrant-pathways-for-stem-employment-in-the-united-states"
+
+[[source]]
+id = "us-uscis-stem-immigrant"
+title = "Immigrant Pathways for STEM Employment in the United States"
+visa_category = "pathway-overview"
+tier = "supporting"
+url = "https://www.uscis.gov/working-in-the-united-states/stem-employment-pathways/immigrant-pathways-for-stem-employment-in-the-united-states"
