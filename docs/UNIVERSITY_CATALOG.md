@@ -15,15 +15,15 @@ Ireland does not have 100 higher-education institutions. Two official lists give
 
 `sources/universities/ie_institutions.csv` holds all **24** (17 + 7). No ranking is applied, because a ranking of 24 adds little. The official website of each institution is left blank on purpose: it has not been verified yet, and a guessed URL would be an unreviewed source. Privately funded colleges that serve international students are not on either list and are not included. Whether to add them is an open question.
 
-## 3. USA: list not yet built
+## 3. USA: 350 institutions, not 500
 
-The ranking source is the IIE Open Doors census (Table 11, "Leading Institutions"): https://opendoorsdata.org/wp-content/uploads/2025/11/OD25_Intl-Student-Census_Tables.xlsx
+Source: IIE Open Doors 2025 International Student Census Tables (2024/25 data), supplied by the founder. Table 17 lists every institution hosting 1,000 or more international students, and that is **240** institutions (smallest has 1,006). Tables 12 to 16 add each institution class's top list, which brings in **110** more institutions below 1,000. Together that is **350** unique institutions in `sources/universities/us_institutions.csv`, ranked by 2024/25 international students.
 
-Our build environment cannot download that file (the shell network allowlist blocks it, and the web fetch tool cannot read spreadsheets). Two things are unknown until the file is read:
-1. Whether Table 11 lists 500 institutions or fewer.
-2. Its column layout.
+**This file cannot give 500.** Below about 1,000 students only the class top-lists exist, so ranks past 350 are not in this data. Reaching 500 needs another source: IPEDS fall enrollment of U.S. nonresident students covers all institutions (NCES). Our build environment cannot download it, so the founder would need to download it.
 
-Fallback if it lists fewer than 500: IPEDS fall enrollment of U.S. nonresident students, which covers all institutions (NCES).
+Notes:
+- Names follow Open Doors (for example "Arizona State University - Campus Immersion"), not necessarily the school's own spelling. Official sites are blank until verified.
+- Counts are as reported to Open Doors for 2024/25. Whether Open Doors terms allow republishing the table is not checked: the CSV holds names and counts only and credits IIE, but read their terms before making the repo public.
 
 ## 4. Coverage ladder
 
@@ -39,6 +39,7 @@ Release gate for moving a university up a level is the same as for any source: r
 
 ## 5. Open items
 
-- Founder to download the Open Doors file, or attach it here, so the US list can be built and counted.
+- Decide whether 350 is enough for the US or whether to add the IPEDS list to reach 500.
+- Check IIE's terms of use before the repo goes public.
 - Decide whether privately funded Irish colleges are in the list.
 - Choose the pilot universities from the top of the list.

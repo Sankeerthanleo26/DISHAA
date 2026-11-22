@@ -1,0 +1,351 @@
+rank,name,city,state,intl_students_2024_25,open_doors_table,official_site,coverage_level
+1,New York University,New York,NY,27532,17,,listed
+2,Northeastern University - Boston,Boston,MA,22465,17,,listed
+3,Columbia University,New York,NY,20733,17,,listed
+4,Arizona State University - Campus Immersion,Tempe,AZ,20368,17,,listed
+5,University of Southern California,Los Angeles,CA,17884,17,,listed
+6,University of Illinois - Urbana-Champaign,Champaign,IL,16144,17,,listed
+7,University of North Texas,Denton,TX,12982,17,,listed
+8,Purdue University - West Lafayette,West Lafayette,IN,12874,17,,listed
+9,Boston University,Boston,MA,12845,17,,listed
+10,University of California - Berkeley,Berkeley,CA,12020,17,,listed
+11,University of Michigan - Ann Arbor,Ann Arbor,MI,11929,17,,listed
+12,University of Washington,Seattle,WA,10962,17,,listed
+13,Johns Hopkins University,Baltimore,MD,10863,17,,listed
+14,University of California - Los Angeles,Los Angeles,CA,10769,17,,listed
+15,University of California - San Diego,La Jolla,CA,10545,17,,listed
+16,University of Texas - Dallas,Richardson,TX,10280,17,,listed
+17,Carnegie Mellon University,Pittsburgh,PA,9836,17,,listed
+18,University of Wisconsin - Madison,Madison,WI,9769,17,,listed
+19,University of Pennsylvania,Philadelphia,PA,9143,17,,listed
+20,SUNY University at Buffalo,Buffalo,NY,9033,17,,listed
+21,Cornell University,Ithaca,NY,8790,17,,listed
+22,Georgia Institute of Technology,Atlanta,GA,8756,17,,listed
+23,Pennsylvania State University - University Park,University Park,PA,8739,17,,listed
+24,Harvard University,Cambridge,MA,8110,17,,listed
+25,University of Texas - Arlington,Arlington,TX,7864,17,,listed
+26,Texas A&M University - College Station,College Station,TX,7685,17,,listed
+27,University of California - Irvine,Irvine,CA,7638,17,,listed
+28,University of Chicago,Chicago,IL,7634,17,,listed
+29,Duke University and Medical Center,Durham,NC,7439,17,,listed
+30,Trine University - Detroit Regional,Detroit,MI,7433,17,,listed
+31,Ohio State University - Columbus,Columbus,OH,7409,17,,listed
+32,University of Texas - Austin,Austin,TX,7409,17,,listed
+33,University of California - Davis,Davis,CA,7384,17,,listed
+34,University of South Florida,Tampa,FL,7268,17,,listed
+35,Northwestern University,Evanston,IL,7019,17,,listed
+36,University of Maryland - College Park,College Park,MD,6943,17,,listed
+37,University of Central Missouri,Warrensburg,MO,6838,17,,listed
+38,University of Florida,Gainesville,FL,6703,17,,listed
+39,University of Cincinnati,Cincinnati,OH,6563,17,,listed
+40,Rutgers University - New Brunswick,New Brunswick,NJ,6387,17,,listed
+41,Indiana University - Bloomington,Bloomington,IN,6363,17,,listed
+42,University of Minnesota - Twin Cities,Minneapolis,MN,6231,17,,listed
+43,University of Houston,Houston,TX,5887,17,,listed
+44,Washington University in St. Louis,Saint Louis,MO,5814,17,,listed
+45,Stanford University,Stanford,CA,5700,17,,listed
+46,George Mason University,Fairfax,VA,5694,17,,listed
+47,University of Illinois - Chicago,Chicago,IL,5583,17,,listed
+48,North Carolina State University,Raleigh,NC,5560,17,,listed
+49,Massachusetts Institute of Technology,Cambridge,MA,5456,17,,listed
+50,Virginia Polytechnic Institute and State University,Blacksburg,VA,5456,17,,listed
+51,Stevens Institute of Technology,Hoboken,NJ,5324,17,,listed
+52,University of New Haven,West Haven,CT,5306,17,,listed
+53,Syracuse University,Syracuse,NY,5292,17,,listed
+54,University of Massachusetts - Amherst,Amherst,MA,5158,17,,listed
+55,Yale University,New Haven,CT,5143,17,,listed
+56,Michigan State University,East Lansing,MI,5095,17,,listed
+57,Illinois Institute of Technology,Chicago,IL,5079,17,,listed
+58,Florida International University,Miami,FL,4808,17,,listed
+59,University of Rochester,Rochester,NY,4746,17,,listed
+60,SUNY Stony Brook University,Stony Brook,NY,4729,17,,listed
+61,The New School,New York,NY,4634,17,,listed
+62,San Jose State University,San Jose,CA,4618,17,,listed
+63,George Washington University,Washington,DC,4563,17,,listed
+64,Saint Louis University,Saint Louis,MO,4482,17,,listed
+65,University of Arizona,Tucson,AZ,4468,17,,listed
+66,University of Utah,Salt Lake City,UT,4416,17,,listed
+67,Georgia State University,Atlanta,GA,4222,17,,listed
+68,Texas Tech University,Lubbock,TX,4206,17,,listed
+69,Georgetown University,Washington,DC,4186,17,,listed
+70,Webster University,Saint Louis,MO,4180,17,,listed
+71,University of California - Santa Barbara,Santa Barbara,CA,4110,17,,listed
+72,Pace University - New York,New York,NY,4083,17,,listed
+73,University of Connecticut,Storrs,CT,3934,17,,listed
+74,Houston Community College System,Houston,TX,3896,17,,listed
+75,University of Maryland - Baltimore County,Baltimore,MD,3779,17,,listed
+76,Savannah College of Art and Design,Savannah,GA,3756,17,,listed
+77,University of Pittsburgh - Pittsburgh,Pittsburgh,PA,3707,17,,listed
+78,University of Colorado - Boulder,Boulder,CO,3648,17,,listed
+79,Iowa State University,Ames,IA,3617,17,,listed
+80,University of Central Florida,Orlando,FL,3504,17,,listed
+81,Rice University,Houston,TX,3498,17,,listed
+82,University of North Carolina - Charlotte,Charlotte,NC,3427,17,,listed
+83,Emory University,Atlanta,GA,3397,17,,listed
+84,University of North Carolina - Chapel Hill,Chapel Hill,NC,3365,17,,listed
+85,DePaul University,Chicago,IL,3362,17,,listed
+86,New Jersey Institute of Technology,Newark,NJ,3289,17,,listed
+87,Lone Star College System,The Woodlands,TX,3281,17,,listed
+88,University of Virginia - Charlottesville,Charlottesville,VA,3187,17,,listed
+89,Drexel University,Philadelphia,PA,3152,17,,listed
+90,University of California - Riverside,Riverside,CA,3143,17,,listed
+91,University of Georgia,Athens,GA,3061,17,,listed
+92,Trine University - Phoenix - AZ Education Center,Tempe,AZ,3050,17,,listed
+93,Dallas College,Dallas,TX,3031,17,,listed
+94,Wichita State University,Wichita,KS,3028,17,,listed
+95,Cleveland State University,Cleveland,OH,3008,17,,listed
+96,Florida State University,Tallahassee,FL,2966,17,,listed
+97,Oregon State University - Corvallis,Corvallis,OR,2869,17,,listed
+98,Sacred Heart University,Fairfield,CT,2848,17,,listed
+99,Kent State University - Kent,Kent,OH,2840,17,,listed
+100,Princeton University,Princeton,NJ,2742,17,,listed
+101,Brown University,Providence,RI,2735,17,,listed
+102,California State University - Long Beach,Long Beach,CA,2694,17,,listed
+103,Rochester Institute of Technology,Rochester,NY,2691,17,,listed
+104,SUNY Binghamton University,Binghamton,NY,2663,17,,listed
+105,University of Miami,Coral Gables,FL,2655,17,,listed
+106,University of Delaware,Newark,DE,2627,17,,listed
+107,University of Missouri - Kansas City,Kansas City,MO,2587,17,,listed
+108,School of Visual Arts,New York,NY,2560,17,,listed
+109,Case Western Reserve University,Cleveland,OH,2533,17,,listed
+110,Fordham University,Bronx,NY,2494,17,,listed
+111,Florida Atlantic University,Boca Raton,FL,2452,17,,listed
+112,Central Michigan University,Mount Pleasant,MI,2440,17,,listed
+113,Vanderbilt University,Nashville,TN,2439,17,,listed
+114,California State University - Northridge,Northridge,CA,2428,17,,listed
+115,Temple University,Philadelphia,PA,2408,17,,listed
+116,University of Memphis,Memphis,TN,2404,17,,listed
+117,Lewis University,Romeoville,IL,2349,17,,listed
+118,Pratt Institute,Brooklyn,NY,2328,17,,listed
+119,University of Alabama - Birmingham,Birmingham,AL,2322,17,,listed
+120,SUNY University at Albany,Albany,NY,2286,17,,listed
+121,Wright State University - Dayton,Dayton,OH,2274,17,,listed
+122,Boston College,Chestnut Hill,MA,2264,17,,listed
+123,Clemson University,Clemson,SC,2205,17,,listed
+124,University of Oklahoma - Norman,Norman,OK,2197,17,,listed
+125,University of Bridgeport,Bridgeport,CT,2179,17,,listed
+126,Indiana University - Indianapolis,Indianapolis,IN,2174,17,,listed
+127,San Diego State University,San Diego,CA,2150,17,,listed
+128,Clark University,Worcester,MA,2148,17,,listed
+129,Monroe University,New Rochelle,NY,2098,17,,listed
+130,University of Iowa,Iowa City,IA,2084,17,,listed
+131,Lamar University,Beaumont,TX,2082,17,,listed
+132,Wilmington University,New Castle,DE,2080,17,,listed
+133,University of Massachusetts - Boston,Boston,MA,2079,17,,listed
+134,University of Kansas,Lawrence,KS,2076,17,,listed
+135,Colorado State University,Fort Collins,CO,2052,17,,listed
+136,Dartmouth College,Hanover,NH,2024,17,,listed
+137,Tufts University,Medford,MA,2016,17,,listed
+138,University of Toledo,Toledo,OH,1990,17,,listed
+139,University of South Carolina - Columbia,Columbia,SC,1988,17,,listed
+140,University of Wisconsin - Milwaukee,Milwaukee,WI,1954,17,,listed
+141,Louisiana State University and A&M College,Baton Rouge,LA,1930,17,,listed
+142,Brigham Young University,Provo,UT,1923,17,,listed
+143,Northwest Missouri State University,Maryville,MO,1922,17,,listed
+144,University of Dayton,Dayton,OH,1922,17,,listed
+145,Auburn University - Montgomery,Montgomery,AL,1901,17,,listed
+146,Santa Monica College,Santa Monica,CA,1876,17,,listed
+147,Santa Clara University,Santa Clara,CA,1867,17,,listed
+148,"Teachers College, Columbia University",New York,NY,1856,17,,listed
+149,University of Nebraska - Lincoln,Lincoln,NE,1850,17,,listed
+150,CUNY Baruch College,New York,NY,1850,17,,listed
+151,De Anza College,Cupertino,CA,1845,17,,listed
+152,Rowan University,Glassboro,NJ,1844,17,,listed
+153,Texas State University,San Marcos,TX,1839,17,,listed
+154,Minnesota State University - Mankato,Mankato,MN,1837,17,,listed
+155,Kennesaw State University,Kennesaw,GA,1830,17,,listed
+156,St. Cloud State University,Saint Cloud,MN,1801,17,,listed
+157,Auburn University - Auburn,Auburn,AL,1757,17,,listed
+158,Brigham Young University - Hawaii,"Laie, Oahu",HI,1756,17,,listed
+159,Valencia College,Orlando,FL,1745,17,,listed
+160,Babson College,Wellesley,MA,1744,17,,listed
+161,Southeast Missouri State University,Cape Girardeau,MO,1728,17,,listed
+162,Brandeis University,Waltham,MA,1725,17,,listed
+163,Wayne State University,Detroit,MI,1718,17,,listed
+164,Brigham Young University - Idaho,Rexburg,ID,1707,17,,listed
+165,Collin County Community College District,McKinney,TX,1704,17,,listed
+166,Gannon University,Erie,PA,1694,17,,listed
+167,San Francisco State University,San Francisco,CA,1658,17,,listed
+168,Missouri University of Science and Technology,Rolla,MO,1656,17,,listed
+169,California State University - Fullerton,Fullerton,CA,1652,17,,listed
+170,Youngstown State University,Youngstown,OH,1645,17,,listed
+171,University of Missouri - Columbia,Columbia,MO,1636,17,,listed
+172,University of Tennessee - Knoxville,Knoxville,TN,1596,17,,listed
+173,University of Arkansas - Fayetteville,Fayetteville,AR,1588,17,,listed
+174,Northern Arizona University,Flagstaff,AZ,1575,17,,listed
+175,Western Michigan University,Kalamazoo,MI,1562,17,,listed
+176,New York Institute of Technology - Old Westbury,Old Westbury,NY,1547,17,,listed
+177,Oklahoma State University - Stillwater,Stillwater,OK,1542,17,,listed
+178,University of Kentucky,Lexington,KY,1541,17,,listed
+179,Northern Illinois University,DeKalb,IL,1540,17,,listed
+180,University of San Francisco,San Francisco,CA,1531,17,,listed
+181,Worcester Polytechnic Institute,Worcester,MA,1516,17,,listed
+182,Southern Arkansas University - Magnolia,Magnolia,AR,1515,17,,listed
+183,Missouri State University,Springfield,MO,1514,17,,listed
+184,Washington State University,Pullman,WA,1489,17,,listed
+185,American University,Washington,DC,1479,17,,listed
+186,University of Colorado - Denver,Denver,CO,1474,17,,listed
+187,East Texas A&M University,Commerce,TX,1468,17,,listed
+188,ArtCenter College of Design,Pasadena,CA,1433,17,,listed
+189,Concordia University - Wisconsin,Mequon,WI,1420,17,,listed
+190,Montgomery College,Rockville,MD,1418,17,,listed
+191,Northeastern University - Seattle,Seattle,WA,1418,17,,listed
+192,Southern Methodist University,Dallas,TX,1417,17,,listed
+193,Northern Virginia Community College,Annandale,VA,1399,17,,listed
+194,University of New Mexico - Albuquerque,Albuquerque,NM,1393,17,,listed
+195,University of Alabama - Tuscaloosa,Tuscaloosa,AL,1391,17,,listed
+196,Portland State University,Portland,OR,1378,17,,listed
+197,University of Michigan - Dearborn,Dearborn,MI,1376,17,,listed
+198,University of Texas - El Paso,El Paso,TX,1367,17,,listed
+199,University of Massachusetts - Lowell,Lowell,MA,1365,17,,listed
+200,Florida Institute of Technology,Melbourne,FL,1362,17,,listed
+201,University of Texas - San Antonio,San Antonio,TX,1361,17,,listed
+202,Southern Illinois University - Edwardsville,Edwardsville,IL,1351,17,,listed
+203,Tulane University,New Orleans,LA,1351,17,,listed
+204,University of Illinois - Springfield,Springfield,IL,1348,17,,listed
+205,Montclair State University,Montclair,NJ,1341,17,,listed
+206,University of California - Santa Cruz,Santa Cruz,CA,1338,17,,listed
+207,Indiana Institute of Technology,Fort Wayne,IN,1318,17,,listed
+208,Virginia Commonwealth University,Richmond,VA,1314,17,,listed
+209,Rutgers University - Newark,Newark,NJ,1311,17,,listed
+210,Lehigh University,Bethlehem,PA,1305,17,,listed
+211,Eastern Illinois University,Charleston,IL,1293,17,,listed
+212,Western Illinois University,Macomb,IL,1268,17,,listed
+213,Orange Coast College,Costa Mesa,CA,1261,17,,listed
+214,University of Hawaii - Manoa,Honolulu,HI,1244,17,,listed
+215,Rhode Island School of Design,Providence,RI,1240,17,,listed
+216,Trine University - Reston Education Center,Reston,VA,1238,17,,listed
+217,Embry-Riddle Aeronautical University - Daytona Beach,Daytona Beach,FL,1230,17,,listed
+218,California State University - East Bay,Hayward,CA,1222,17,,listed
+219,Concordia University - Saint Paul,Saint Paul,MN,1217,17,,listed
+220,Kansas State University,Manhattan,KS,1210,17,,listed
+221,Ohio University - Athens,Athens,OH,1203,17,,listed
+222,Southern Illinois University - Carbondale,Carbondale,IL,1199,17,,listed
+223,California Institute of Technology,Pasadena,CA,1190,17,,listed
+224,Rensselaer Polytechnic Institute - Troy,Troy,NY,1166,17,,listed
+225,University of Massachusetts - Dartmouth,North Dartmouth,MA,1147,17,,listed
+226,Michigan Technological University,Houghton,MI,1144,17,,listed
+227,School of the Art Institute of Chicago,Chicago,IL,1122,17,,listed
+228,Governors State University,University Park,IL,1118,17,,listed
+229,SUNY Fashion Institute of Technology,New York,NY,1101,17,,listed
+230,Northeastern University - Silicon Valley,San Jose,CA,1096,17,,listed
+231,University of Oregon,Eugene,OR,1077,17,,listed
+232,University of Louisville,Louisville,KY,1076,17,,listed
+233,Mississippi State University,Mississippi State,MS,1066,17,,listed
+234,Loyola Marymount University,Los Angeles,CA,1042,17,,listed
+235,Yeshiva University,New York,NY,1034,17,,listed
+236,University of Nevada - Las Vegas,Las Vegas,NV,1032,17,,listed
+237,Miami-Dade College,Miami,FL,1030,17,,listed
+238,University of Southern Mississippi,Hattiesburg,MS,1022,17,,listed
+239,Seattle University,Seattle,WA,1015,17,,listed
+240,Baylor University,Waco,TX,1006,17,,listed
+241,University of Central Oklahoma,Edmond,OK,975,13,,listed
+242,Bellevue College,Bellevue,WA,973,15,,listed
+243,MCPHS University,Boston,MA,946,16,,listed
+244,Lawrence Technological University,Southfield,MI,943,13,,listed
+245,Bentley University,Waltham,MA,942,13,,listed
+246,Green River College,Auburn,WA,932,15,,listed
+247,The University of Tampa,Tampa,FL,893,13,,listed
+248,CUNY LaGuardia Community College,Long Island City,NY,883,15,,listed
+249,Weber State University,Ogden,UT,861,13,,listed
+250,Oral Roberts University,Tulsa,OK,856,13,,listed
+251,Bunker Hill Community College,Boston,MA,798,15,,listed
+252,Seattle Central College,Seattle,WA,766,15,,listed
+253,The University of Texas Health Science Center - Houston,Houston,TX,746,16,,listed
+254,New York Film Academy - Burbank,Burbank,CA,743,16,,listed
+255,CUNY Borough of Manhattan Community College,New York,NY,731,15,,listed
+256,California College of the Arts,San Francisco,CA,721,16,,listed
+257,Shoreline Community College,Shoreline,WA,656,15,,listed
+258,Perimeter College of Georgia State University,Clarkston,GA,637,15,,listed
+259,Barnard College,New York,NY,611,14,,listed
+260,Edmonds College,Lynnwood,WA,598,15,,listed
+261,Augustana College,Rock Island,IL,585,14,,listed
+262,San Mateo County Community College District,San Mateo,CA,583,15,,listed
+263,Manhattan School of Music,New York,NY,576,16,,listed
+264,Irvine Valley College,Irvine,CA,565,15,,listed
+265,Pasadena City College,Pasadena,CA,564,15,,listed
+266,Diablo Valley College,Pleasant Hill,CA,558,15,,listed
+267,Mount Holyoke College,South Hadley,MA,555,14,,listed
+268,Denison University,Granville,OH,512,14,,listed
+269,DePauw University,Greencastle,IN,495,14,,listed
+270,Central Piedmont Community College,Charlotte,NC,487,15,,listed
+271,Broward College,Fort Lauderdale,FL,470,15,,listed
+272,Tarrant County College,Fort Worth,TX,468,15,,listed
+273,University of Richmond,Richmond,VA,465,14,,listed
+274,Maryland Institute College of Art,Baltimore,MD,456,16,,listed
+275,Lake Forest College,Lake Forest,IL,454,14,,listed
+276,South Florida Bible College and Theological Seminary,Deerfield Beach,FL,452,14,,listed
+277,Bergen Community College,Paramus,NJ,450,15,,listed
+278,Foothill College,Los Altos Hills,CA,446,15,,listed
+279,Missouri Valley College,Marshall,MO,443,14,,listed
+280,Smith College,Northampton,MA,435,14,,listed
+281,Bard College,Annandale-on-Hudson,NY,431,14,,listed
+282,Salt Lake Community College,Salt Lake City,UT,430,15,,listed
+283,Hillsborough Community College,Tampa,FL,424,15,,listed
+284,St. Olaf College,Northfield,MN,423,14,,listed
+285,Grinnell College,Grinnell,IA,419,14,,listed
+286,El Paso Community College,El Paso,TX,418,15,,listed
+287,University of Maryland - Baltimore,Baltimore,MD,417,16,,listed
+288,Wellesley College,Wellesley,MA,414,14,,listed
+289,Wesleyan University,Middletown,CT,413,14,,listed
+290,Musicians Institute,Hollywood,CA,412,16,,listed
+291,Macalester College,Saint Paul,MN,411,14,,listed
+292,Drew University,Madison,NJ,378,14,,listed
+293,Ivy Tech Community College,Indianapolis,IN,361,15,,listed
+294,Middlebury College,Middlebury,VT,356,14,,listed
+295,Portland Community College,Portland,OR,356,15,,listed
+296,Connecticut State Community College,New Britain,CT,355,15,,listed
+297,Trinity College,Hartford,CT,348,14,,listed
+298,Southern California Institute of Architecture,Los Angeles,CA,346,16,,listed
+299,California Institute of Advanced Management,Alhambra,CA,342,16,,listed
+300,Oberlin College,Oberlin,OH,341,14,,listed
+301,Wake Technical Community College,Raleigh,NC,340,15,,listed
+302,Ohlone College,Fremont,CA,337,15,,listed
+303,Knox College,Galesburg,IL,335,14,,listed
+304,Franklin and Marshall College,Lancaster,PA,332,14,,listed
+305,The Juilliard School,New York,NY,328,16,,listed
+306,Colgate University,Hamilton,NY,324,14,,listed
+307,Dickinson College,Carlisle,PA,323,14,,listed
+308,Santa Barbara City College,Santa Barbara,CA,323,15,,listed
+309,CUNY Queensborough Community College,Bayside,NY,323,15,,listed
+310,Oakland Community College,Royal Oak,MI,318,15,,listed
+311,Embry-Riddle Aeronautical University - Prescott,Prescott,AZ,317,14,,listed
+312,Soka University of America,Aliso Viejo,CA,316,14,,listed
+313,Colby College,Waterville,ME,313,14,,listed
+314,Gettysburg College,Gettysburg,PA,313,14,,listed
+315,University of California - San Francisco,San Francisco,CA,307,16,,listed
+316,Baylor College of Medicine,Houston,TX,305,16,,listed
+317,New York Film Academy - New York,New York,NY,304,16,,listed
+318,Amherst College,Amherst,MA,303,14,,listed
+319,Georgia Gwinnett College,Lawrenceville,GA,302,14,,listed
+320,College of Wooster,Wooster,OH,297,14,,listed
+321,Pomona College,Claremont,CA,294,14,,listed
+322,Whitman College,Walla Walla,WA,273,14,,listed
+323,Tufts University - Boston Health Sciences Campus,Boston,MA,273,16,,listed
+324,Swarthmore College,Swarthmore,PA,270,14,,listed
+325,Union College,Schenectady,NY,269,14,,listed
+326,Carleton College,Northfield,MN,260,14,,listed
+327,University of Colorado Denver Anschutz Medical Campus,Aurora,CO,259,16,,listed
+328,Davidson College,Davidson,NC,246,14,,listed
+329,Kenyon College,Gambier,OH,240,14,,listed
+330,American Film Institute Conservatory,Los Angeles,CA,230,16,,listed
+331,Rose-Hulman Institute of Technology,Terre Haute,IN,226,16,,listed
+332,University of Texas Southwestern Medical Center - Dallas,Dallas,TX,222,16,,listed
+333,Boston Architectural College,Boston,MA,214,16,,listed
+334,Menlo College,Atherton,CA,205,16,,listed
+335,Moody Bible Institute,Chicago,IL,198,16,,listed
+336,LIM College,New York,NY,193,16,,listed
+337,Longy School of Music,Cambridge,MA,192,16,,listed
+338,Otis College of Art and Design,Los Angeles,CA,184,16,,listed
+339,Central Baptist Theological Seminary,Overland Park,KS,182,16,,listed
+340,Northwood University - Michigan,Midland,MI,180,16,,listed
+341,Trinity International University,Deerfield,IL,138,16,,listed
+342,University of Kansas Medical Center,Kansas City,KS,138,16,,listed
+343,University of Oklahoma Health Sciences Center,Oklahoma City,OK,137,16,,listed
+344,Massachusetts College of Art and Design,Boston,MA,129,16,,listed
+345,University of Tennessee Health Science Center,Memphis,TN,117,16,,listed
+346,University of Texas Health Science Center - San Antonio,San Antonio,TX,111,16,,listed
+347,New York School of Interior Design,New York,NY,109,16,,listed
+348,Pennsylvania State University - Penn State College of Medicine (Hershey),Hershey,PA,98,16,,listed
+349,New York Medical College,Valhalla,NY,96,16,,listed
+350,University of North Texas Health Science Center,Fort Worth,TX,90,16,,listed
