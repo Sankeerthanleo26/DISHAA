@@ -42,11 +42,11 @@ Release gate for moving a university up a level is the same as for any source: r
 
 **Ireland: University College Dublin (UCD), chosen 2026-11-21.** The founder asked for the second-best Irish university. By the QS World University Rankings 2027, Trinity is 75th and UCD is 100th, so UCD is second (the Irish Examiner reports UCD at 100th for 2027 and TCD holding 75th). By international enrolment, which is the basis chosen for the catalog, the order flips: the HEA reports UCD with 7,985 international students and Trinity with 6,945, followed by UCC (4,585) and University of Galway (4,065). UCD is therefore first by enrolment and second by QS, and Trinity is the reverse. Both readings put the same two schools on top, so UCD is a safe choice, and Trinity can be the next wave.
 
-**USA: not chosen yet.**
+**USA: University of Colorado Denver (CU Denver), chosen 2026-11-21.** It is rank 186 in the catalog with 1,474 international students in 2024/25 (listed in Open Doors as "University of Colorado - Denver"). The separate Anschutz Medical Campus entry (rank 327) is not part of the pilot. The founder studied here and the tuition payment-plan story (F07) comes from this kind of university rule, so he can check answers against first-hand experience. One bias to watch: the eval set must not be written only from his own journey (R17), so Irish and other-origin cases stay required.
 
 ## 6. Open items
 
 - US list size: 350 accepted for now (2026-11-21); the IPEDS list to reach 500 can wait.
 - Check IIE's terms of use before the repo goes public.
 - Decide whether privately funded Irish colleges are in the list.
-- Choose the US pilot university (the Irish one is UCD).
+- Find the official CU Denver and UCD pages for admissions, tuition and fees, payment plans, health insurance and on-campus housing, and add them to the source registry (next step).

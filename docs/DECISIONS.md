@@ -285,7 +285,7 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *A. Immigration only:* simplest, but 9 of 15 real questions are refused.
 - *C. Everything:* dozens of source sets, and most effort would go to sources instead of freshness.
 
-**Trade-offs:** More sources to curate and review. Results from one or two universities may not generalise. University documents are often PDFs or catalog pages, so ADR-021 matters more. The pilot universities are not chosen yet.
+**Trade-offs:** More sources to curate and review. Results from one or two universities may not generalise. University documents are often PDFs or catalog pages, so ADR-021 matters more. The pilot universities are CU Denver (US) and University College Dublin (Ireland), chosen 2026-11-21.
 
 ---
 
