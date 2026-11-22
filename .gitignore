@@ -9,3 +9,5 @@ dist/
 build/
 # Downloaded and derived data (third-party content): regenerate with dishaa-fetch / dishaa-chunk
 data/
+report/
+dishaa_first_run_report.zip
