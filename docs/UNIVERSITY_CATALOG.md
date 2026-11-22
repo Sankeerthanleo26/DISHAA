@@ -38,9 +38,15 @@ Notes:
 
 Release gate for moving a university up a level is the same as for any source: read in full, page age recorded, eval cases pass.
 
-## 5. Open items
+## 5. Pilot selection
 
-- Decide whether 350 is enough for the US or whether to add the IPEDS list to reach 500.
+**Ireland: University College Dublin (UCD), chosen 2026-11-21.** The founder asked for the second-best Irish university. By the QS World University Rankings 2027, Trinity is 75th and UCD is 100th, so UCD is second (the Irish Examiner reports UCD at 100th for 2027 and TCD holding 75th). By international enrolment, which is the basis chosen for the catalog, the order flips: the HEA reports UCD with 7,985 international students and Trinity with 6,945, followed by UCC (4,585) and University of Galway (4,065). UCD is therefore first by enrolment and second by QS, and Trinity is the reverse. Both readings put the same two schools on top, so UCD is a safe choice, and Trinity can be the next wave.
+
+**USA: not chosen yet.**
+
+## 6. Open items
+
+- US list size: 350 accepted for now (2026-11-21); the IPEDS list to reach 500 can wait.
 - Check IIE's terms of use before the repo goes public.
 - Decide whether privately funded Irish colleges are in the list.
-- Choose the pilot universities from the top of the list.
+- Choose the US pilot university (the Irish one is UCD).
