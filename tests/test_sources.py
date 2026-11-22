@@ -85,3 +85,18 @@ def test_no_pdfs_or_dated_posts_in_lists():
         for s in load_sources(path):
             assert not s.url.lower().endswith(".pdf"), s.id
             assert not re.search(r"/20\d\d/\d\d/", s.url), s.id
+
+
+def test_pilot_university_lists_are_valid():
+    base = Path(__file__).resolve().parents[1] / "sources"
+    cud = load_sources(base / "cu_denver.toml")
+    ucd = load_sources(base / "ucd.toml")
+    assert len(cud) == 17 and len(ucd) == 14
+    assert {s.country for s in cud} == {"US"} and {s.country for s in ucd} == {"IE"}
+    assert all(s.id.startswith("cud-") for s in cud) and all(s.id.startswith("ucd-") for s in ucd)
+    assert all(s.visa_category.startswith("university-") for s in cud + ucd)
+    ids = [s.id for s in cud + ucd]
+    assert len(ids) == len(set(ids))
+    existing = {s.id for f in ("us_student.toml", "ie_student.toml") for s in load_sources(base / f)}
+    assert not existing & set(ids)
+    assert all(s.url.startswith("https://") and not s.url.lower().endswith(".pdf") for s in cud + ucd)

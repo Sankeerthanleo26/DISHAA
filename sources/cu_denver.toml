@@ -1,0 +1,113 @@
+# CU Denver (pilot university, US). Official ucdenver.edu pages only, HTML only (PDFs deferred, ADR-021).
+# visa_category holds the university topic: university-admissions, -fees, -payment, -insurance, -housing, -immigration.
+# Human-readable notes, page ages and gaps live in docs/UNIVERSITY_SOURCES.md. Found through the search index; not yet fetched by our pipeline.
+
+[defaults]
+country = "US"
+visa_category = "university-admissions"
+tier = "core"
+
+[[source]]
+id = "cud-elp"
+title = "CU Denver graduate catalog: Proof of English Language Proficiency"
+url = "https://catalog.ucdenver.edu/cu-denver/graduate/international-admissions/proof-english-language-proficiency/"
+
+[[source]]
+id = "cud-intl-costs-grad"
+title = "CU Denver International Admissions: Graduate costs and financial aid"
+url = "https://www.ucdenver.edu/international-admissions/costs-financial-aid/graduate"
+visa_category = "university-fees"
+
+[[source]]
+id = "cud-grad-tuition"
+title = "CU Denver Student Finances: Graduate tuition and fees"
+url = "https://www.ucdenver.edu/student-finances/tuition-fees/graduate"
+visa_category = "university-fees"
+
+[[source]]
+id = "cud-cost-of-attendance"
+title = "CU Denver Student Finances: Cost of attendance"
+url = "https://www.ucdenver.edu/student-finances/tuition-fees/cost-of-attendance"
+visa_category = "university-fees"
+
+[[source]]
+id = "cud-bursar-faq"
+title = "CU Denver Bursar: Billing FAQ"
+url = "https://www.ucdenver.edu/student-finances/billing-payments/billing-faq"
+visa_category = "university-payment"
+
+[[source]]
+id = "cud-pay-your-bill"
+title = "CU Denver Bursar: Pay your bill"
+url = "https://www.ucdenver.edu/student-finances/billing-payments/pay-your-bill"
+visa_category = "university-payment"
+
+[[source]]
+id = "cud-sponsored-financial-responsibility"
+title = "CU Denver ISSS: Financial responsibility for sponsored students"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/sponsored/financial-responsibility"
+visa_category = "university-payment"
+
+[[source]]
+id = "cud-health-requirements"
+title = "CU Denver ISSS: International student health insurance requirements"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/health"
+visa_category = "university-insurance"
+
+[[source]]
+id = "cud-health-waiver"
+title = "CU Denver ISSS: Health insurance waiver policy"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/health/waiver"
+visa_category = "university-insurance"
+
+[[source]]
+id = "cud-health-dates-costs"
+title = "CU Denver ISSS: Insurance dates, deadlines and costs"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/health/dates-deadlines-costs"
+visa_category = "university-insurance"
+
+[[source]]
+id = "cud-health-resources"
+title = "CU Denver ISSS: Insurance and campus resources"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/health/resources"
+visa_category = "university-insurance"
+tier = "supporting"
+
+[[source]]
+id = "cud-housing-faq"
+title = "CU Denver Housing and Dining: FAQ"
+url = "https://www.ucdenver.edu/housing-and-dining/faq"
+visa_category = "university-housing"
+
+[[source]]
+id = "cud-lynx-crossing-rates"
+title = "CU Denver Housing: Lynx Crossing floor plans and 2026-27 rates"
+url = "https://www.ucdenver.edu/housing-and-dining/lynx-crossing/floor-plans"
+visa_category = "university-housing"
+
+[[source]]
+id = "cud-isss-students"
+title = "CU Denver ISSS: International students hub"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students"
+visa_category = "university-immigration"
+tier = "supporting"
+
+[[source]]
+id = "cud-cpt"
+title = "CU Denver ISSS: F-1 Curricular Practical Training"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/current/regulations-procedures/employment-internships/f-1-cpt"
+visa_category = "university-immigration"
+
+[[source]]
+id = "cud-maintaining-status"
+title = "CU Denver ISSS: Maintaining immigration status"
+url = "https://www.ucdenver.edu/services/international-student-and-scholar-services/students/current/regulations-procedures/maintaining-immigration-status"
+visa_category = "university-immigration"
+
+[[source]]
+id = "cud-student-affairs-policies"
+title = "CU Denver policies: Student affairs (includes policy 7010 on insurance)"
+url = "https://www.ucdenver.edu/policies/functional-areas/student-affairs"
+visa_category = "university-insurance"
+tier = "supporting"
+

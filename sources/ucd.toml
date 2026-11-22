@@ -1,0 +1,94 @@
+# University College Dublin (pilot university, Ireland). Official ucd.ie pages only, HTML only (PDFs deferred, ADR-021).
+# visa_category holds the university topic: university-admissions, -fees, -payment, -insurance, -housing.
+# Human-readable notes, page ages and gaps live in docs/UNIVERSITY_SOURCES.md. Found through the search index; not yet fetched by our pipeline.
+
+[defaults]
+country = "IE"
+visa_category = "university-admissions"
+tier = "core"
+
+[[source]]
+id = "ucd-grad-entry"
+title = "UCD Graduate Admissions: Entry requirements"
+url = "https://www.ucd.ie/graduateadmissions/admissions/entryrequirements/"
+
+[[source]]
+id = "ucd-global-apply-faqs"
+title = "UCD Global: How to apply (FAQs)"
+url = "https://www.ucd.ie/global/study-at-ucd/faqs/"
+
+[[source]]
+id = "ucd-fees-noneu"
+title = "UCD Students: International (non-EU) programme fees"
+url = "https://www.ucd.ie/students/fees/noneucoursefees/"
+visa_category = "university-fees"
+
+[[source]]
+id = "ucd-fees-noneu-ug-2026-27"
+title = "UCD Students: Non-EU undergraduate fees 2026/27"
+url = "https://www.ucd.ie/students/fees/noneucoursefees/internationalnon-euundergraduatefees202627/"
+visa_category = "university-fees"
+
+[[source]]
+id = "ucd-fees-noneu-gradresearch-2026-27"
+title = "UCD Students: Non-EU graduate research fees 2026/27"
+url = "https://www.ucd.ie/students/fees/noneucoursefees/non-eugraduateresearchfees202627/"
+visa_category = "university-fees"
+
+[[source]]
+id = "ucd-fees-noneu-certdip-2026-27"
+title = "UCD Students: Non-EU undergraduate certificate and diploma fees 2026/27"
+url = "https://www.ucd.ie/students/fees/noneucoursefees/non-euundergraduatecertificateanddiplomafees202627/"
+visa_category = "university-fees"
+tier = "supporting"
+
+[[source]]
+id = "ucd-living-costs"
+title = "UCD Global: Living costs"
+url = "https://www.ucd.ie/global/study-at-ucd/scholarshipsfinances/livingcosts/"
+visa_category = "university-fees"
+tier = "supporting"
+
+[[source]]
+id = "ucd-fee-deadlines"
+title = "UCD Students: Fee payment deadlines"
+url = "https://www.ucd.ie/students/fees/feepaymentdeadlines/"
+visa_category = "university-payment"
+
+[[source]]
+id = "ucd-deposit"
+title = "UCD Registry: Paying your deposit (graduate applicants)"
+url = "https://www.ucd.ie/registry/prospectivestudents/admissions/graduateapplicants/acceptinganoffer/payingyourdeposit/"
+visa_category = "university-payment"
+
+[[source]]
+id = "ucd-health-insurance"
+title = "UCD Global: Health insurance for offer holders"
+url = "https://www.ucd.ie/global/offerholders/healthinsurance/"
+visa_category = "university-insurance"
+
+[[source]]
+id = "ucd-offerholder-faqs"
+title = "UCD Global: Offer holder FAQs"
+url = "https://www.ucd.ie/global/offerholders/faqs/"
+visa_category = "university-insurance"
+tier = "supporting"
+
+[[source]]
+id = "ucd-residences-fees-payments"
+title = "UCD Residences: Fees and payments"
+url = "https://www.ucd.ie/residences/feespayments/"
+visa_category = "university-housing"
+
+[[source]]
+id = "ucd-residences-faqs"
+title = "UCD Residences: FAQs and policies"
+url = "https://www.ucd.ie/residences/faqspolicies/"
+visa_category = "university-housing"
+
+[[source]]
+id = "ucd-global-oncampus"
+title = "UCD Global: On-campus student accommodation"
+url = "https://www.ucd.ie/global/study-at-ucd/accommodation/studentaccommodationoncampus/"
+visa_category = "university-housing"
+
