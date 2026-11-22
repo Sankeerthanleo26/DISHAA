@@ -314,3 +314,18 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Pilot only, no catalog:* simplest, but ignores the stated goal.
 
 **Trade-offs:** Uncovered schools get a weaker answer. Registered-level sources are not hand-inspected, so they carry a lower-confidence label until promoted. Status: **proposed**; see docs/UNIVERSITY_CATALOG.md.
+
+---
+
+## ADR-023: Pages the fetcher cannot read are captured by hand, with provenance
+
+**Decision (proposed 2026-11-21):** When an official page refuses automated requests (HTTP 403) or is built by JavaScript, a person saves it from their own browser into `data/inbox/<source id>.html` and runs `dishaa-manual`. The file is checked (block-page text, too few words), copied next to the fetched pages, and recorded in `manual_manifest.json` with its hash and capture time. The fetcher keeps its honest user agent and obeys robots.txt; it does not pose as a browser to get past a block.
+
+**Why:** The first real run (2026-11-21) returned 403 for all 14 UCD pages and 5 State Department pages, and left some JavaScript-built pages almost empty. Those include the UCD non-EU fee pages that eval case F01 needs. A person reading a public page in a browser is ordinary use, and the page date and hash are still recorded, so the freshness pipeline works the same way.
+
+**Alternatives:**
+- *Disguise the fetcher as a browser:* gets past the block, but it ignores the site's wishes and breaks the rule that the system is honest about what it is.
+- *Headless browser for JavaScript pages:* may be right later for pages that stay open to bots; heavy for 19 pages and does not fix a 403.
+- *Ask each university for permission or a feed:* the right long-term route for the pilot schools; slow, so it runs alongside this one.
+
+**Trade-offs:** Manual capture does not scale to hundreds of universities and goes stale silently unless someone re-saves it. The review queue (design decision 5) must treat manual pages as having a capture date and a reminder. Status: **proposed**.

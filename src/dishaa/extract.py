@@ -57,6 +57,13 @@ BOILERPLATE_LINES = {
     "share", "share this page", "menu", "search",
 }  # fmt: skip
 
+# Headings that label a navigation widget, not a topic. The heading and the lines that
+# follow it (up to the next heading) are page furniture, e.g. "Breadcrumb: Home > Students".
+FURNITURE_HEADINGS = {
+    "breadcrumb", "breadcrumbs", "in this section", "on this page", "page navigation",
+    "table of contents", "jump to", "quick links", "related pages", "share this page",
+}  # fmt: skip
+
 _ZERO_WIDTH = dict.fromkeys(map(ord, "\u200b\u200c\u200d\ufeff\u2060"), None)
 
 
@@ -225,9 +232,19 @@ def _strip_boilerplate(root: Tag, root_is_body: bool) -> None:
 
 def _clean_blocks(blocks: list[Block]) -> list[Block]:
     out: list[Block] = []
+    in_furniture = False  # inside a navigation widget that started at a furniture heading
     for block in blocks:
-        if block.kind != "heading" and block.text.lower() in BOILERPLATE_LINES:
+        if block.kind == "heading":
+            in_furniture = block.text.lower().rstrip(":") in FURNITURE_HEADINGS
+            if in_furniture:
+                continue
+        elif in_furniture:
             continue
+        else:
+            if block.text.lower() in BOILERPLATE_LINES:
+                continue
+            if not any(ch.isalnum() for ch in block.text):  # a stray "×" or "»" button label
+                continue
         if out and out[-1] == block:  # menus are often included twice (desktop and mobile)
             continue
         out.append(block)

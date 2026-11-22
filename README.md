@@ -29,6 +29,8 @@ dishaa-chunk --sources $L
 
 `dishaa-chunk` prints one row per page (words, headings, chunks, chunk sizes) and warns about pages that look wrong. To read the chunks of one page: `dishaa-chunk --show student-faq`. Chunk size, minimum size and overlap are adjustable with `--max-tokens`, `--min-tokens` and `--overlap-tokens`.
 
+**Pages the fetcher cannot read** (HTTP 403, or built by JavaScript): open the page in Chrome, press Cmd+S, choose Format "Webpage, Complete", and save it as `data/inbox/<source id>.html` (for example `ucd-fee-deadlines.html`). Then run `dishaa-manual --sources ...`. It checks each file, copies it into `data/raw`, records its hash and capture time in `manual_manifest.json`, and lists the pages still missing with the file name each needs (ADR-023).
+
 ## Status
 
 Week 1 in progress: foundation, fetcher, extraction and chunking are built and tested on a synthetic page. The extractor has not yet been run on the real downloaded pages. Next: embeddings and loading chunks into pgvector.

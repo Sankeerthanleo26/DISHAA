@@ -150,3 +150,19 @@ def test_empty_page_gives_an_empty_document():
     doc = extract_document("<html><body></body></html>", SOURCE)
     assert doc.blocks == []
     assert doc.word_count == 0
+
+
+def test_navigation_widgets_and_stray_symbols_are_dropped():
+    html = (
+        "<html><body><main>"
+        "<h2>Breadcrumb</h2><ul><li>Home</li><li>Students</li></ul>"
+        "<h2>Working</h2><p>" + "Real content about working rules. " * 12 + "</p>"
+        "<p>×</p>"
+        "<h3>In This Section</h3><ul><li>Next page</li></ul>"
+        "<h2>Fees</h2><p>The fee is paid once.</p>"
+        "</main></body></html>"
+    )
+    text = all_text(extract_document(html, SOURCE))
+    for junk in ["Breadcrumb", "Home", "Students", "×", "In This Section", "Next page"]:
+        assert junk not in text
+    assert "Real content about working rules" in text and "The fee is paid once" in text
