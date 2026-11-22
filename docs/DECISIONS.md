@@ -357,3 +357,18 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Command line plus a Postgres table:* quick, but no diff view and easy to forget.
 
 **Trade-offs:** Needs a second, private repository so that third-party page text is never published. Content lives in git while serving state lives in Postgres, so the two must stay in step. Slower than a button, which is acceptable for one reviewer and a few changes a week.
+
+---
+
+## ADR-026: Deploy on Lambda and API Gateway with Aurora Serverless v2, defined in Terraform
+
+**Decision (accepted 2026-11-21):** The API runs as a container image on AWS Lambda behind an API Gateway HTTP API. The database is Aurora PostgreSQL Serverless v2 with auto-pause (minimum 0 ACUs) and pgvector 0.8 or newer. The web page makes a warm-up call on load so the database has resumed before the user finishes the intake questions. Infrastructure is defined in Terraform with state in S3 and `terraform plan` output posted on pull requests. GitHub Actions reaches AWS through OpenID Connect, with no long-lived keys. A hard monthly cost cap is enforced in the application (a counter of Bedrock calls checked before each call), alongside AWS Budgets alerts. Region is chosen after checking Bedrock model availability. See docs/DESIGN.md section 9.
+
+**Why:** A portfolio demo gets few visitors, so an always-on load balancer and database are the main avoidable cost. Scale-to-zero removes it, and API Gateway provides the throttling needed for per-IP rate limits (FR-26). App Runner is closed to new customers since April 30, 2026.
+
+**Alternatives:**
+- *Lambda Function URL only:* simplest, but no throttling or custom-domain features.
+- *ECS Express Mode with RDS:* steady latency, but always-on cost and more to patch.
+- *App Runner:* closed to new customers.
+
+**Trade-offs:** A paused database can take up to about 15 seconds to resume, handled by the warm-up call, connection retries and a "waking up" message. Lambda cold starts affect the first request after a quiet period. Prices are unverified. Open: region, per-IP limit mechanism behind API Gateway, one account or two.

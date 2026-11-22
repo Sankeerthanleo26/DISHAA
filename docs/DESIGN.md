@@ -30,8 +30,8 @@ Non-goals (v0.1)
 | 3 | PDF handling | **Draft** |
 | 4 | Freshness scheduler | **Accepted** 2026-11-21 |
 | 5 | Review queue | **Accepted** 2026-11-21 |
-| 6 | Deploy target and IaC | **Draft** |
-| 7 | Eval tooling | Not started |
+| 6 | Deploy target and IaC | **Accepted** 2026-11-21 |
+| 7 | Eval tooling | **Draft** |
 | 8 | Observability and cost | Not started |
 
 ## 4. Decision 1: Models
@@ -235,7 +235,7 @@ Recommendation: A for v0.1. Revisit B only if the queue grows past what one pers
 
 ## 9. Decision 6: Deploy target and infrastructure as code
 
-### 9.1 Decision (draft)
+### 9.1 Decision (accepted 2026-11-21)
 
 - **API:** AWS Lambda running the Python app as a container image, behind an API Gateway HTTP API. It scales to zero, so an idle demo costs close to nothing, and API Gateway gives the throttling and custom domain we need for per-IP rate limiting (FR-26).
 - **Database:** Aurora PostgreSQL Serverless v2 with auto-pause (minimum 0 ACUs), pgvector 0.8 or newer (Decision 2). The first request after a pause waits for the database to resume, which can take up to about 15 seconds. The intake questions take longer than that, so the web page opens a database connection as soon as it loads (a "warm-up" call) and the user never waits.
@@ -273,7 +273,47 @@ Recommendation: A for v0.1. Revisit B only if the queue grows past what one pers
 - One account or two (dev and prod). Start with one and separate by naming, move to two when there is real data.
 - Whether local development uses Docker Postgres only (current plan) or also LocalStack.
 
-## 10. Sources checked (Nov 21, 2026)
+## 10. Decision 7: Eval tooling
+
+### 10.1 Decision (draft)
+
+Build a small eval harness in our own Python code, in two layers, and run it from pytest and CI.
+
+1. **Rule checks (no model needed, run on every pull request):** retrieval hit (did the expected source appear in the top-k), refusal accuracy, cross-country contamination, citation validity (every cited passage exists, and says what the answer claims), and exception traps (the answer must contain each required exception, and must not state the general rule alone).
+2. **Judge checks (a model scores each answer, run on release candidates and model changes):** correctness against expected facts, and faithfulness to the retrieved passages. The judge is a different model family or tier from the generator (Decision 1). We hand-label 20 cases first and measure how often the judge agrees with us before trusting it.
+
+Results are written to a JSON run report that is committed with the change (and later to a Postgres table), so any two runs can be compared by commit.
+
+### 10.2 Why
+
+- Four of the six gates in the Eval Plan are rules, not opinions. Checking them with code is cheaper, faster, deterministic and does not depend on a judge model being right.
+- The exception-trap gate is 100%, and a judge can be lenient. Required-fact assertions cannot.
+- Writing the harness is itself proof of work: a reader of the repository sees how quality is measured, not a tool's default dashboard.
+- Gates plug into the review queue (Decision 5) as a required CI check.
+
+### 10.3 Options considered
+
+| Option | For | Against |
+|---|---|---|
+| A. Own harness, two layers (recommended) | Fits our exact gates; deterministic rule checks; small; shows engineering | We write and maintain it; judge prompts need calibration |
+| B. Amazon Bedrock Evaluations (managed) | Judge-based metrics for correctness, completeness, faithfulness and refusal; evaluates a custom RAG pipeline from responses we supply; includes citation precision and coverage metrics | Runs as jobs with S3 and IAM, so slow and awkward as a per-PR check; judge metrics only, no rule checks; costs per job |
+| C. Open-source framework (promptfoo, Ragas, DeepEval, Inspect) | Ready-made metrics and reports; promptfoo is built for CI gates and Ragas for retrieval and faithfulness metrics | Another dependency and config language; the metrics are generic, while our gates are specific rules; Ragas and similar tools are judge-based, so the 100% exception gate would still need our own assertions |
+
+Recommendation: A. Use B once, as an independent cross-check during the model bake-off (Decision 1), to see whether its judge scores agree with ours. Revisit C if the harness grows past what we want to maintain.
+
+### 10.4 What blocks it
+
+- 15 of the 32 seed rows have no expected facts yet, and the 17 drafted cases are unreviewed. A case without an official source passage for its expected facts does not count toward any gate (R18).
+- Pages with missing base rules (the UCD fee tables) mean fee cases cannot be written correctly yet (R23).
+
+### 10.5 Open items
+
+- Write the judge prompt and the 20-case hand-labelled calibration set.
+- Decide the pass rule for a case with several required facts (all required, or a weighted score). Starting rule: all required facts present and no forbidden claim.
+- Where the harness stores run reports before the production database exists.
+- Whether to add adversarial and prompt-injection cases to the same harness (R14).
+
+## 11. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html
@@ -289,3 +329,6 @@ Recommendation: A for v0.1. Revisit B only if the queue grows past what one pers
 - Aurora Serverless v2 scale to zero: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2-auto-pause.html
 - Aurora scale-to-zero announcement and resume time: https://aws.amazon.com/blogs/database/introducing-scaling-to-0-capacity-with-amazon-aurora-serverless-v2
 - Lambda HTTP invoke options (Function URL vs API Gateway): https://docs.aws.amazon.com/lambda/latest/dg/apig-http-invoke-decision.html
+- Bedrock RAG evaluation (custom pipelines, metrics, judge models): https://aws.amazon.com/about-aws/whats-new/2025/03/amazon-bedrock-rag-evaluation-generally-available
+- Bedrock evaluations, citation precision and coverage: https://aws.amazon.com/blogs/machine-learning/evaluate-models-or-rag-systems-using-amazon-bedrock-evaluations-now-generally-available
+- Eval framework comparisons (secondary sources, treat as opinion): https://andrew.ooo/answers/best-ai-eval-frameworks-april-2026/ and https://machinelearningmastery.com/llm-evaluation-frameworks-compared-how-to-actually-measure-what-your-model-does/
