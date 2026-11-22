@@ -23,7 +23,7 @@
 
 | ID | Risk | L | I | Mitigation | How we would notice |
 |---|---|---|---|---|---|
-| R10 | The HTML extractor fails on real pages (it has only been tested on a synthetic page; pages built by JavaScript may be empty) | H | M | Inspect the first real run by eye; pipeline already warns on short pages; fall back to a headless browser only for pages that need it (ADR-010) | Pipeline warnings; empty-chunk counts |
+| R10 | The HTML extractor fails on real pages (it has only been tested on a synthetic page; pages built by JavaScript may be empty) | H | M | First real run inspected 2026-11-21: works on 59 of 78 pages, see R23 for the rest. Inspect by eye; pipeline already warns on short pages; fall back to a headless browser only for pages that need it (ADR-010) | Pipeline warnings; empty-chunk counts |
 | R11 | Sources block us or their terms of use forbid collection | M | M | robots.txt, polite rate, honest User-Agent (ADR-008); record terms in the source registry; prefer official downloads and APIs | Fetch status counts in the manifest |
 | R12 | A parse error or page redesign makes the freshness job report a false change, or miss a real one | M | H | Hash cleaned content, not raw HTML (ADR-011); human review queue; periodic full re-check | False-change rate; review queue size |
 | R13 | A model or API version change alters behaviour | M | M | Pin model versions; run the full eval set on every model change | Eval trend |
@@ -40,6 +40,7 @@
 | R19 | Sensitive personal data (nationality, immigration situation) is stored or leaked through logs | M | H | Origin country used in-session only; logs exclude origin and free text that identifies a person; no accounts in v0.1 (FR-5, FR-25) | Log schema review; periodic log sampling |
 | R20 | Scope creep from "any country, any user" into many half-covered countries | M | H | Staged rollout (ADR-015); a country is "supported" only with graph, sources and evals complete | Count of countries by completeness |
 | R22 | University layer: university rules live in catalogs, fee schedules and PDFs that change each term, and a pilot on one school may not generalise | H | M | Pilot one or two universities only; same review queue and page-age tracking as government sources; term-dated sources; PDF promotion rule (ADR-021) | Count of university sources past their review date |
+| R23 | Official sites refuse automated fetching (HTTP 403) or hide content behind JavaScript, so the corpus has silent holes, and a page can lose its main table while its exceptions survive | H | H (seen 2026-11-21: 19 of 78 pages 403; UCD fee tables dropped) | Manual capture with provenance (ADR-023); never answer from a page whose base rule is missing; per-page content checks (table present, word count) in the freshness pipeline; ask universities for permission or a feed | Pages without content; manual pages past their re-check date |
 
 ## Top five to work on first
 

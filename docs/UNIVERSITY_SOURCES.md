@@ -39,7 +39,7 @@ Same limits as the main registry. Every URL came from an official-domain web sea
 ### Gaps
 
 - **Current graduate admissions requirements** (GPA, test requirements; question F01): only the 2024-25 and 2022-23 catalog PDFs were found, and both are dated. The current catalog HTML page is not yet located.
-- **2026-27 graduate tuition table** and the **payment plan landing page** were not found by URL.
+- **2026-27 graduate tuition table:** found 2026-11-21 and the source list now points at it. The **payment plan landing page** is still not found by URL.
 - **The ISSS "Immigration Updates" page** is referenced by the CPT page and is not yet located. It probably holds the CPT policy text.
 - **Legacy and duplicate URLs left out:** an old `ucdenver.edu/tuition-cost/cost-of-attendance` page (1,397 days), the old Flywire payments page, the ISSS housing page (3,293 days), and 2025-26 year-specific fee pages.
 
@@ -73,7 +73,16 @@ Same limits as the main registry. Every URL came from an official-domain web sea
 ### Gaps
 
 - **Non-EU graduate taught fees 2026/27**: no such page was found. The founder's likely audience is master's students, so this is the most important missing page.
+- **Main fee table missing from the captured fee pages (found 2026-11-21):** the saved 2026/27 graduate research and undergraduate pages kept the notes, the EUR 5 AMLE levy rule and the list of exception programmes, but not the base fee per college. Answering from them would quote exceptions without the rule they depart from. Cause not yet known (the raw file has not been inspected). Until fixed, **no UCD fee answer may be given from these pages**; the eval cases that need them stay unanswerable on purpose.
+- **Non-EU graduate research fee page is not the taught-master's page:** `ucd-fees-noneu-gradresearch-2026-27` covers research degrees. Taught-master's fees are still the most important missing page.
+- **`ucd-fees-noneu-certdip-2026-27` not captured yet** (the file was saved with a doubled .html extension and ignored).
 - **Left out:** PDFs (English language requirements document, international prospectus, offer pack, accommodation price lists), a test-host copy of the residences page (`elatest.ucd.ie`) that still describes 2024/25, and school-level pages (individual departments).
+
+## 3b. First real run, 2026-11-21 (outcome)
+
+- 78 pages listed. 59 fetched automatically; 19 returned HTTP 403 (all 14 UCD pages and 5 State Department pages). After manual capture (ADR-023), 65 have content and 13 are still missing (4 State Department pages, 9 UCD pages).
+- The extractor kept table rows, "Last updated" lines and exception rules on CU Denver, UCD deadline and US government pages. It left navigation stubs (fixed) and, on the UCD fee pages, dropped the main fee table (open gap above).
+- Thin pages (under 150 words) to re-check: `cud-bursar-faq` (87), `cud-pay-your-bill` (150), three Irish immigration pages (`study-visa-options`, `study-options`, `before-after-arrive`), and `cud-health-dates-costs` (rates came out correctly).
 
 ## 4. What this does not prove
 
