@@ -343,3 +343,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *cron on a small server:* simple, but a machine to patch and pay for.
 
 **Trade-offs:** Cloud IP ranges are blocked more often than home connections, so more pages may need manual capture. State between runs needs a home before the production database exists. Cadences are starting values and are tuned from the change log.
+
+---
+
+## ADR-025: Source changes are reviewed as pull requests in a private corpus repository
+
+**Decision (accepted 2026-11-21):** Each detected change to a source page becomes one pull request in a private repository (for example `dishaa-corpus`). The PR shows old and new cleaned text, a summary of what changed, the affected sources, pathways and steps, and the page's own date. CI runs the full eval set as a required check. Merging the PR is the approval and records who approved and when. Postgres holds the serving state (`pending`, `active`, `superseded`); a page with a pending core change is served with an "update pending review" warning. See docs/DESIGN.md section 8.
+
+**Why:** A pull request already provides a diff view, an audit trail, required checks and notifications, so there is nothing to build or host. The eval gate (FR-31) becomes a CI check. It works for one reviewer (R16) and for more.
+
+**Alternatives:**
+- *Small admin web page:* one screen, but real work to build and secure, with a weaker audit trail.
+- *Command line plus a Postgres table:* quick, but no diff view and easy to forget.
+
+**Trade-offs:** Needs a second, private repository so that third-party page text is never published. Content lives in git while serving state lives in Postgres, so the two must stay in step. Slower than a button, which is acceptable for one reviewer and a few changes a week.
