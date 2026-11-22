@@ -300,3 +300,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Ignore PDFs entirely:* risks missing rules that exist only in a PDF, such as the Irish programme criteria and some university fee schedules.
 
 **Trade-offs:** Some answers will say "not sure, check X" where a PDF holds the rule. Status: **proposed**; see docs/DESIGN.md section 6.
+
+---
+
+## ADR-022: A university catalog with a coverage ladder (amends ADR-020)
+
+**Decision (proposed):** Keep a catalog of all target universities (US ranked by international students, all Irish higher-education institutions) with a coverage level per university: listed, registered, curated. Every catalog entry appears in the intake picker. Only registered and curated universities get answers; others get a "not covered yet" reply. Universities move up the ladder in waves, largest international enrolment first, and the pilot (1 to 2) is curated first.
+
+**Why:** The founder wants all universities covered. Curating hundreds of schools' fee, insurance and payment-plan rules by hand would take longer than the whole v0.1 and push the freshness problem out. A ladder gives users an honest answer for every school on day one and lets coverage grow without a rewrite.
+
+**Alternatives:**
+- *Curate all before release:* complete, but v0.1 would not ship.
+- *Pilot only, no catalog:* simplest, but ignores the stated goal.
+
+**Trade-offs:** Uncovered schools get a weaker answer. Registered-level sources are not hand-inspected, so they carry a lower-confidence label until promoted. Status: **proposed**; see docs/UNIVERSITY_CATALOG.md.
