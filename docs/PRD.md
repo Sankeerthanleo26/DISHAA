@@ -83,7 +83,7 @@ The user can be from any origin country and heading to any supported destination
 - **Concurrency:** designed for multiple simultaneous users; load-test to a stated number before release
 - **Latency:** median under 5 seconds, p95 under 12 seconds
 - **Cost:** hard monthly budget with alerts; cost per query tracked
-- **Security and privacy:** HTTPS, no secrets in the repo, no personal data stored, no user nationality retained
+- **Security and privacy:** HTTPS, no secrets in the repo, no user accounts, no user nationality retained as a field. The raw question text is logged (FR-25, amended 2026-11-21), which can contain personal details, so the R19 release gate applies before any public launch.
 - **Maintainability:** per-country source list and pathway graph; adding a country means config, graph and eval questions, not code changes
 
 ## 5. Metrics
