@@ -17,7 +17,7 @@ mkdir -p report
 echo "== fetch ==" | tee report/fetch.txt
 dishaa-fetch --sources $L 2>&1 | tee -a report/fetch.txt || true
 echo "== chunk ==" | tee report/chunk.txt
-dishaa-chunk --sources $L 2>&1 | tee -a report/chunk.txt
+dishaa-chunk --sources $L 2>&1 | tee -a report/chunk.txt || true
 for id in cud-health-dates-costs cud-elp ucd-fee-deadlines ucd-fees-noneu-ug-2026-27 student-faq us-sits-working; do
   dishaa-chunk --sources $L --show "$id" > "report/show_$id.txt" 2>&1 || true
 done
