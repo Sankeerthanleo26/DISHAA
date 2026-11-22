@@ -96,7 +96,7 @@ Owner of the core pages is Immigration Service Delivery of the Department of Jus
 
 **c. Duplicate and legacy URLs exist.** The Irish "required documents" content is reachable under at least three URL forms, one of them about 1,070 days old and showing different stamp sections. One page serves many stamp categories (Stamp 0, 1G, 2...), so chunk headings must carry the stamp name, or answers will mix stamps.
 
-**d. Key Irish policy documents are PDFs.** The student pathway programme criteria, the Third Level Graduate Programme rules and the TrustEd policy statement are PDFs. The extractor is HTML-only, so these are deferred. Decision needed: build PDF extraction (adds scope) or rely on the HTML pages.
+**d. Key Irish policy documents are PDFs.** The student pathway programme criteria, the Third Level Graduate Programme rules and the TrustEd policy statement are PDFs. The extractor is HTML-only, so these are deferred. **Decided 2026-11-21 (ADR-021):** PDFs stay deferred in v0.1 and are tracked as known gaps; a PDF is promoted only when an eval case cannot be answered without it.
 
 **e. The existing Irish list is missing pages students actually need.** Recommended additions (HTML, found in the index, not yet added to `ie_student.toml`, pending your approval):
 - How to apply for a long term study visa (the main student visa page)

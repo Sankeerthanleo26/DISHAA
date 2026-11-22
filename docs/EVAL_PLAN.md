@@ -101,7 +101,7 @@ Metrics are defined in the PRD (section 5). Initial gates for a release candidat
 
 ## 8. Next steps
 
-1. Founder decides the scope option (section 3).
+1. ~~Founder decides the scope option (section 3).~~ **Done 2026-11-21: option B, university pilot (ADR-020).** Seed labels updated: F01, F02, F07, F08 in scope; F11 in scope for the on-campus part only; F03, F14 and F15 moved to the v0.2 backlog; F12 stays out of scope (a refusal case).
 2. Founder reviews the 17 drafts and edits or rejects them.
 3. Source registry is built (needed for `source_ids` and expected facts).
 4. Expected facts are filled in from official sources, three or four cases at a time.

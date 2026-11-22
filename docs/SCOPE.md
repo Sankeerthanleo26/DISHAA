@@ -19,7 +19,8 @@
 
 **System components:**
 - Pathway graph per country (curated data)
-- Three-question intake and pathway selection
+- Intake (origin, destination, degree) and pathway selection, plus an optional fourth question, the university, for the pilot (ADR-020)
+- University layer (pilot): one or two universities onboarded as a source tier covering admissions requirements, tuition and fees, payment plans, health insurance and on-campus housing
 - Scope classifier and refusal policy
 - Source registry and curated source lists (official sources only)
 - Ingestion: fetch, clean, chunk (exceptions kept with their rules), embed, index
@@ -35,6 +36,8 @@
 
 - Destinations other than Ireland and the USA
 - Pathways not in the graph: marriage and family routes, asylum and refugee routes, special-protection programs, and any other route. These are declined as "outside supported pathways", not denied as nonexistent
+- Daily-life and state topics: living costs by state, taxes, driver's licences, mobile plans and off-campus housing. These are declined with a pointer to official channels and kept on the v0.2 backlog
+- Universities beyond the pilot
 - Individual case decisions, eligibility verdicts ("will I be approved") and legal strategy
 - Form filling, document upload, user accounts, saved chats
 - Training a model from scratch

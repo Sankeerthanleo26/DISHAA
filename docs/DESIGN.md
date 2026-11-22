@@ -27,7 +27,7 @@ Non-goals (v0.1)
 |---|----------|--------|
 | 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
 | 2 | Vector store (keep pgvector on Postgres) | **Accepted** 2026-11-21 |
-| 3 | PDF handling | Not started |
+| 3 | PDF handling | **Draft** |
 | 4 | Freshness scheduler | Not started |
 | 5 | Review queue | Not started |
 | 6 | Deploy target and IaC | Not started |
@@ -128,7 +128,35 @@ Rules:
 - Silent recall loss from post-filtering (above). Mitigated by the iterative-scan setting and the top-k test.
 - Managed Postgres cost when idle. Revisited in decision 6.
 
-## 6. Sources checked (Nov 21, 2026)
+## 6. Decision 3: PDF handling
+
+### 6.1 Decision (draft)
+
+Keep v0.1 HTML-only (ADR-010). Track PDFs as known gaps. Promote a PDF only when an eval case needs it (ADR-021).
+
+### 6.2 Why
+
+- We have not yet seen our HTML extractor run on the real pages. Adding a second, harder extractor before that is guessing.
+- PDF extraction can scramble tables, columns and footnotes. Exceptions are the thing DISHAA must not lose, so a bad parse is worse than a gap.
+- The refusal path already handles gaps honestly: "not sure, check X".
+
+### 6.3 What changes because of scope B
+
+University tuition, fee and payment-plan rules are often published as PDFs or catalog pages. Expect pressure to promote PDFs in the university tier first. The promotion rule handles that without a blanket decision.
+
+### 6.4 If a PDF is promoted
+
+1. Store the raw bytes with a hash (already done for HTML, ADR-011).
+2. Extract text per page and keep the page number as part of the citation.
+3. Reject or flag pages where extraction looks wrong (very little text, scrambled tables) and have a human check the text before it is indexed.
+4. Track the PDF's own date or version in the source registry, like page age for HTML.
+
+### 6.5 Open items
+
+- Choose the PDF extraction library only when the first PDF is promoted, and compare at least two on that file.
+- Choose the pilot university or universities. This decides which PDFs are likely to matter.
+
+## 7. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html

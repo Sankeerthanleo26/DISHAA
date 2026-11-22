@@ -272,3 +272,31 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Separate index or table per pathway:* works, but multiplies migrations and indexes.
 
 **Trade-offs:** Iterative scans can be slower on very selective filters. Status: **accepted** (2026-11-21); see docs/DESIGN.md section 5.
+
+---
+
+## ADR-020: v0.1 adds a university-layer pilot (scope option B)
+
+**Decision (accepted 2026-11-21):** v0.1 adds a fourth, optional intake question (the university) and a university source tier for one or two pilot universities. It covers admissions requirements, tuition and fees, payment plans, health insurance and on-campus housing. State, tax, driver's licence, mobile-plan and off-campus topics are declined and kept on the v0.2 backlog. This amends ADR-016, which assumed a three-question intake.
+
+**Why:** 9 of the founder's 15 real questions depend on the university, the state or daily life, not on immigration law. The lost-exception failure (a general rule hiding an international-student exception, as in the tuition payment-plan story) lives in university documents. Taking it on keeps the product's hardest problem, freshness plus exceptions, central without turning v0.1 into a life-admin assistant.
+
+**Alternatives:**
+- *A. Immigration only:* simplest, but 9 of 15 real questions are refused.
+- *C. Everything:* dozens of source sets, and most effort would go to sources instead of freshness.
+
+**Trade-offs:** More sources to curate and review. Results from one or two universities may not generalise. University documents are often PDFs or catalog pages, so ADR-021 matters more. The pilot universities are not chosen yet.
+
+---
+
+## ADR-021: PDFs stay deferred in v0.1; promotion needs an eval case
+
+**Decision (proposed):** The extractor stays HTML-only (ADR-010). PDFs are listed in the source registry as known gaps, never silently dropped. A PDF is promoted to in-scope only when a specific eval case cannot be answered correctly from HTML sources alone. When that happens, it goes through a separate PDF extractor with page-number citations and a manual check of the extracted text.
+
+**Why:** PDF text extraction is lossy (tables, columns, headers and footnotes can be scrambled), and in this domain a scrambled exception is worse than a missing one. Building it before we know which PDFs matter spends effort without evidence.
+
+**Alternatives:**
+- *Build PDF extraction now:* covers more, but adds an untested and error-prone path before the HTML pipeline has been inspected on real pages.
+- *Ignore PDFs entirely:* risks missing rules that exist only in a PDF, such as the Irish programme criteria and some university fee schedules.
+
+**Trade-offs:** Some answers will say "not sure, check X" where a PDF holds the rule. Status: **proposed**; see docs/DESIGN.md section 6.

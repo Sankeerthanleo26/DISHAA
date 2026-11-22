@@ -39,6 +39,7 @@
 | R18 | Expected answers are written from a model's memory, so evals test the model against itself | M | H | Rule: expected facts must cite an official source passage; cases without one stay unfinished | Cases with empty `source_ids` |
 | R19 | Sensitive personal data (nationality, immigration situation) is stored or leaked through logs | M | H | Origin country used in-session only; logs exclude origin and free text that identifies a person; no accounts in v0.1 (FR-5, FR-25) | Log schema review; periodic log sampling |
 | R20 | Scope creep from "any country, any user" into many half-covered countries | M | H | Staged rollout (ADR-015); a country is "supported" only with graph, sources and evals complete | Count of countries by completeness |
+| R22 | University layer: university rules live in catalogs, fee schedules and PDFs that change each term, and a pilot on one school may not generalise | H | M | Pilot one or two universities only; same review queue and page-age tracking as government sources; term-dated sources; PDF promotion rule (ADR-021) | Count of university sources past their review date |
 
 ## Top five to work on first
 
