@@ -13,7 +13,7 @@ Same limits as the main registry. Every URL came from an official-domain web sea
 |---|---|---|---|---|
 | cud-elp | admissions | core | | University minimum test scores exist, but programmes may set higher ones |
 | cud-intl-costs-grad | fees | core | | 2026-27 cost estimates assume 6 credit hours a semester for most graduate programmes; check what that means for full-time students |
-| cud-grad-tuition | fees | core | | Hub for year-specific tables; the 2026-27 table URL was not found |
+| cud-grad-tuition | fees | core | | 2026-27 table found 2026-11-21 (the old hub URL only listed years); next year the URL changes, so the review queue must flag the year |
 | cud-cost-of-attendance | fees | core | | Estimates, not bills |
 | cud-bursar-faq | payment | core | | Deferred payment plan; instalment count |
 | cud-pay-your-bill | payment | core | | International payment route and card service fee |
