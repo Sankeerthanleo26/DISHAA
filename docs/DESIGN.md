@@ -321,7 +321,7 @@ Use **CloudWatch** (logs, metrics, alarms, dashboard) for v0.1, defined in Terra
 
 **One structured log line per request** holds: request id, timestamp, pathway and step, the pinned generator and embedder model IDs, latency of each stage (retrieve, generate, validate), token counts and estimated cost, the ids and versions of the retrieved chunks, the outcome (answered, refused, error) with the refusal reason, and the citation-validity result.
 
-**What is never logged:** origin country, the raw question text, or anything that identifies a person (R19, FR-25). We log the question's category (pathway, step) and its length instead. If a user presses "this answer was wrong" and agrees, the question text is attached to that one report for review.
+**Raw question text is logged (founder decision, 2026-11-21).** This amends FR-25 and raises R19. The PII redaction layer is deferred, and the release gate in R19 applies: no public launch until a PII layer exists (redact before write, with a leak test in the eval harness) or the raw-text logging is turned off. While raw text is logged, three free defaults apply: logs encrypted at rest, access limited to the founder, 30-day retention. **Origin country is not logged as a field** and is never joined to a request, which keeps it out of the debugging trail (FR-5).
 
 ### 11.2 What we watch
 
@@ -357,7 +357,8 @@ Recommendation: A now. Add B once the log lines and metrics exist, because the d
 - Verify CloudWatch and Bedrock prices before committing to the retention period.
 - Write a one-page runbook for each alarm: what it means, how to check, how to fix.
 - Decide log retention (starting value: 30 days) and what, if anything, is kept longer.
-- Decide what the "answer was wrong" report flow looks like for users and how it enters the eval set.
+- Build the PII layer before any public launch (R19 release gate): choose a redaction tool (verify AWS options), redact before write, and add the leak test to the eval harness.
+- Decide what the "answer was wrong" report flow looks like for users. With raw text logged, real questions can seed new eval cases once reviewed.
 
 ## 12. Sources checked (Nov 21, 2026)
 

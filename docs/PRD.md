@@ -56,7 +56,7 @@ The user can be from any origin country and heading to any supported destination
 ### 3.5 API and interface
 - FR-23: `POST /ask` accepts a message and conversation state and returns answer, citations, pathway, and a coverage indicator.
 - FR-24: Simple web chat interface with intake, clickable citations and visible "last verified" dates.
-- FR-25: Log each request (retrieved chunk IDs, latency, token usage, guardrail decision) without storing personal data or the user's origin country.
+- FR-25: Log each request (retrieved chunk IDs, latency, token usage, guardrail decision) and the **raw question text**. The origin country is not stored as a field and is not joined to a logged request. *Amended 2026-11-21 by the founder: raw text is logged, and the PII layer is deferred (see R19 and the release gate there). Previously: no personal data in logs.*
 - FR-26: Per-IP rate limiting and a hard monthly cost cap.
 
 ### 3.6 Freshness (core requirement)
