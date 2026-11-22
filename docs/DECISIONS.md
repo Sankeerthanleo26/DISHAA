@@ -244,3 +244,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Block everything until reviewed:* safest, but the system serves outdated rules during review.
 
 **Trade-offs:** Review is manual work and a bottleneck. Supporting-tier sources may be auto-approved later. Status: **proposed**, to be confirmed in the design doc.
+
+---
+
+## ADR-018: Provisional model choices, validated by bake-off
+
+**Decision (proposed):** Embeddings default to Titan Text Embeddings V2 at 1024 dimensions, normalized, with Cohere Embed v4 as the challenger. The generator is a config value; Claude Haiku 5.5, Claude Sonnet 5.5 and Nova 2 Lite are compared on the eval set and the cheapest model that passes every release gate is chosen. Model IDs and embedding dimension are recorded with every chunk and every answer.
+
+**Why:** The embedding choice fixes the `vector(...)` dimension, and changing it means re-embedding everything. 1024 matches the existing schema and is well under pgvector's 2,000-dimension HNSW limit. The generator should be chosen on measured refusal and exception-trap scores, not on price or on the author's preference.
+
+**Alternatives:**
+- *Cohere Embed v4 as default:* larger context and configurable size, but more surface than a text-only product needs; kept as the challenger.
+- *Pick the generator now:* faster, but unmeasured, and the author of this ADR is a Claude model.
+
+**Trade-offs:** The bake-off needs the eval set filled in first. Model lifecycle dates force periodic re-validation. Status: **proposed**; see docs/DESIGN.md section 4.
