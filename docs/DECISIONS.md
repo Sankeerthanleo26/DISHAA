@@ -257,4 +257,4 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Cohere Embed v4 as default:* larger context and configurable size, but more surface than a text-only product needs; kept as the challenger.
 - *Pick the generator now:* faster, but unmeasured, and the author of this ADR is a Claude model.
 
-**Trade-offs:** The bake-off needs the eval set filled in first. Model lifecycle dates force periodic re-validation. Status: **proposed**; see docs/DESIGN.md section 4.
+**Trade-offs:** The bake-off needs the eval set filled in first. Model lifecycle dates force periodic re-validation. Status: **accepted** (2026-11-21); generator choice still pending the bake-off. See docs/DESIGN.md section 4.

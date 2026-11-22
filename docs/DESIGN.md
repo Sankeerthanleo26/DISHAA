@@ -1,6 +1,6 @@
 # DISHAA Design Doc (RFC-001)
 
-Status: **Draft, decision 1 open for review** · Author: Sankeerthan Sornapoodi (Drona) · Date: 2026-11-21
+Status: **Draft, decision 1 accepted 2026-11-21** · Author: Sankeerthan Sornapoodi (Drona) · Date: 2026-11-21
 Related: [PRD](PRD.md), [Scope](SCOPE.md), [Decisions](DECISIONS.md), [Eval Plan](EVAL_PLAN.md), [Risk Register](RISK_REGISTER.md)
 
 ## 1. Context
@@ -25,7 +25,7 @@ Non-goals (v0.1)
 
 | # | Decision | Status |
 |---|----------|--------|
-| 1 | Generation model and embedding model | **Draft (this section)** |
+| 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
 | 2 | Vector store (keep pgvector on Postgres?) | Not started |
 | 3 | PDF handling | Not started |
 | 4 | Freshness scheduler | Not started |
