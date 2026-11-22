@@ -2,7 +2,7 @@
 
 **Status:** Draft v1 · **Owner:** Sankeerthan Sornapoodi · **Date:** 2026-11-16
 **Related:** [PRD](PRD.md) (FR-11, FR-27 to FR-33) · [Risk Register](RISK_REGISTER.md) · [Eval Plan](EVAL_PLAN.md)
-**Machine-readable lists:** [`sources/ie_student.toml`](../sources/ie_student.toml) (14) · [`sources/us_student.toml`](../sources/us_student.toml) (33)
+**Machine-readable lists:** [`sources/ie_student.toml`](../sources/ie_student.toml) (14) · [`sources/us_student.toml`](../sources/us_student.toml) (34)
 
 ## 1. What this is
 
@@ -26,7 +26,7 @@ The TOML files are what the fetcher reads. This document is the human side: why 
 
 **Next step:** you run `dishaa-fetch` for both lists on your machine (network access), then `dishaa-chunk --show <id>` on a few pages. That is the first real test of the extractor.
 
-## 4. USA registry (33 sources)
+## 4. USA registry (34 sources)
 
 | ID | Owner | Tier | Category | Age (days) | Notes |
 |---|---|---|---|---|---|
