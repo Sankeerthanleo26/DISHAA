@@ -103,3 +103,11 @@ def required_facts(case: Case, ans: Answer) -> CheckResult:
     text = _norm(ans.text)
     missing = [str(f) for f in case.expected_facts if not _contains(text, f)]
     return CheckResult("required_facts", not missing, f"missing: {missing}" if missing else "")
+
+
+def refusal_notice(case: Case, ans: Answer) -> CheckResult:
+    """A refusal states that Dishaa only covers student immigration pathways (founder wording)."""
+    if not case.required_notice:
+        return CheckResult("refusal_notice", True, "no notice required")
+    ok = _norm(case.required_notice) in _norm(ans.text)
+    return CheckResult("refusal_notice", ok, f"missing: {case.required_notice}" if not ok else "")

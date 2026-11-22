@@ -25,10 +25,11 @@ def chunk(source="us-fees", country="US", text="The fee is $100 for students."):
     return checks.RetrievedChunk("c1", source, country, text)
 
 
-def test_seed_file_loads_and_no_case_counts_yet():
+def test_seed_file_loads_and_only_approved_cases_count():
     cases = load_cases(SEED)
     assert len(cases) == 32
-    assert all(c.exclusion_reason() for c in cases)  # nothing is approved yet (R18)
+    counted = {c.id for c in cases if not c.exclusion_reason()}
+    assert counted == {"R01", "R02", "R03", "R04", "R05"}  # only founder-approved cases (R18)
 
 
 def test_answer_case_without_sources_is_excluded():
@@ -110,3 +111,27 @@ def test_baseline_refuser_fails_the_answer_cases_and_report_has_gates():
 def test_empty_gates_report_incomplete_not_pass():
     report = runner.evaluate([], runner.refuse_everything)
     assert runner.overall(report) == "incomplete"
+
+
+def test_refusal_notice_and_forbidden_claim_on_refusals():
+    case = make_case(
+        expected_behavior="refuse_out_of_pathway",
+        source_ids=[],
+        expected_facts=[],
+        required_notice="student immigration pathways",
+        forbidden_claims=["does not exist"],
+    )
+    good = checks.Answer(
+        "refused", text="I can only help with student immigration pathways, not this route."
+    )
+    bad = checks.Answer("refused", text="That visa does not exist.")
+    assert checks.refusal_notice(case, good).passed
+    assert not checks.refusal_notice(case, bad).passed
+    assert checks.exception_traps(case, good).passed
+    assert not checks.exception_traps(case, bad).passed
+    assert [f.__name__ for f in runner.checks_for(case)] == [
+        "refusal_accuracy",
+        "contamination",
+        "refusal_notice",
+        "exception_traps",
+    ]

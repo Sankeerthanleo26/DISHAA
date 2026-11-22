@@ -68,8 +68,15 @@ def test_real_usa_list_is_valid():
     assert {s.tier for s in sources} == {"core", "supporting"}
     assert sum(s.tier == "supporting" for s in sources) == 8
     assert {s.visa_category for s in sources} == {
-        "f1-student", "f1-employment", "practical-training", "opt", "stem-opt",
-        "h1b", "o1", "green-card", "pathway-overview",
+        "f1-student",
+        "f1-employment",
+        "practical-training",
+        "opt",
+        "stem-opt",
+        "h1b",
+        "o1",
+        "green-card",
+        "pathway-overview",
     }
 
 
@@ -97,6 +104,10 @@ def test_pilot_university_lists_are_valid():
     assert all(s.visa_category.startswith("university-") for s in cud + ucd)
     ids = [s.id for s in cud + ucd]
     assert len(ids) == len(set(ids))
-    existing = {s.id for f in ("us_student.toml", "ie_student.toml") for s in load_sources(base / f)}
+    existing = {
+        s.id for f in ("us_student.toml", "ie_student.toml") for s in load_sources(base / f)
+    }
     assert not existing & set(ids)
-    assert all(s.url.startswith("https://") and not s.url.lower().endswith(".pdf") for s in cud + ucd)
+    assert all(
+        s.url.startswith("https://") and not s.url.lower().endswith(".pdf") for s in cud + ucd
+    )

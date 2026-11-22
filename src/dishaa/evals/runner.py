@@ -20,6 +20,7 @@ GATES = {
     "refusal_accuracy": {"min": 0.95},
     "citation_validity": {"min": 0.95},
     "exception_traps": {"min": 1.00},
+    "refusal_notice": {"min": 1.00},
     "contamination": {"max_failures": 0},
 }
 
@@ -37,12 +38,20 @@ def checks_for(case: Case) -> list:
         if case.must_include_exceptions or case.forbidden_claims:
             applicable.append(checks.exception_traps)
         return applicable
-    return [checks.refusal_accuracy, checks.contamination]
+    refusal_checks = [checks.refusal_accuracy, checks.contamination]
+    if case.required_notice:
+        refusal_checks.append(checks.refusal_notice)
+    if case.forbidden_claims:
+        refusal_checks.append(checks.exception_traps)
+    return refusal_checks
 
 
 def refuse_everything(case: Case) -> checks.Answer:
     """Baseline system: refuses every question. Useful to prove the harness can fail."""
-    return checks.Answer(outcome="refused", text="Outside the pathways Dishaa supports.")
+    return checks.Answer(
+        outcome="refused",
+        text="I am not authorized to help with anything beyond student immigration pathways.",
+    )
 
 
 def evaluate(cases: list[Case], ask: AskFn) -> dict:
