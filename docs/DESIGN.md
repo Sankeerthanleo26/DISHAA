@@ -28,7 +28,7 @@ Non-goals (v0.1)
 | 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
 | 2 | Vector store (keep pgvector on Postgres) | **Accepted** 2026-11-21 |
 | 3 | PDF handling | **Draft** |
-| 4 | Freshness scheduler | Not started |
+| 4 | Freshness scheduler | **Draft** |
 | 5 | Review queue | Not started |
 | 6 | Deploy target and IaC | Not started |
 | 7 | Eval tooling | Not started |
@@ -156,7 +156,46 @@ University tuition, fee and payment-plan rules are often published as PDFs or ca
 - Choose the PDF extraction library only when the first PDF is promoted, and compare at least two on that file.
 - Choose the pilot university or universities. This decides which PDFs are likely to matter.
 
-## 7. Sources checked (Nov 21, 2026)
+## 7. Decision 4: Freshness scheduler
+
+### 7.1 Decision (draft)
+
+A scheduled job runs the existing `dishaa-fetch` code on a per-tier cadence, compares the cleaned-content hash with the stored one (ADR-011), and writes a row to the review queue (Decision 5) when it differs. Blocked pages (HTTP 403, ADR-023) are not fetched by the job. They get a **re-capture due date**, and the stale-source alert fires when it passes. Start the job on **GitHub Actions cron**; the same command moves to AWS EventBridge Scheduler when Decision 6 settles the deploy target.
+
+### 7.2 What the first real run taught us
+
+- 19 of 78 pages refused our fetcher, even from a home connection. Cloud IP ranges (GitHub, AWS) are usually treated more harshly than home ones, so expect more refusals, not fewer, once the job leaves a laptop.
+- A page can change and keep its hash if the extractor drops the changed part (the UCD fee tables). The job therefore also checks that each page still contains what it should: a minimum word count, and for fee pages a table.
+- Pages carry their own dates ("Last updated: Nov 28, 2023"). That date is a second change signal and a staleness signal.
+
+### 7.3 Cadence (starting values, to tune from the change log)
+
+| Tier | Check | Why |
+|---|---|---|
+| core, government | every 3 days | A rule change here makes answers wrong |
+| core, university | weekly, daily in the 6 weeks before each term | Fees and deadlines move around term starts |
+| supporting | every 14 days | Lower stakes |
+| manually captured | re-capture due every 14 days (core) or 30 days (supporting) | No automatic signal exists |
+
+Requests use ETag and If-Modified-Since when the server offers them, and keep the existing 3-second delay and robots.txt rules.
+
+### 7.4 Options considered
+
+| Option | For | Against |
+|---|---|---|
+| A. GitHub Actions cron | No infrastructure, free, every run has a public log, easy to show on a portfolio | Needs somewhere to keep state (a small Postgres or committed manifests); cloud IPs; 6-hour job limit is fine for this load |
+| B. AWS EventBridge Scheduler plus a Fargate or Lambda task | Matches the production target; IAM, retries, alarms | Needs Decision 6 first; more to build before the first change is detected |
+| C. cron on a small always-on server | Simple mental model | A server to patch and pay for, and nothing about it is portfolio-worthy |
+
+Recommendation: A now, B when Decision 6 is made. Keep the job as a plain command, so moving it is a config change.
+
+### 7.5 Open items
+
+- Where does the job keep state before the production database exists? (Likely the manifests plus a small SQLite or Postgres file in the repo's Actions cache.)
+- Whether to email UCD, CU Denver and the State Department for permission or a feed. This is the only route that removes the manual list.
+- Decision 5 (review queue) decides what a human sees when the job reports a change.
+
+## 8. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html
