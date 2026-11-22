@@ -61,7 +61,7 @@ def test_bad_files_are_rejected(tmp_path: Path, body: str, message: str):
 
 def test_real_usa_list_is_valid():
     sources = load_sources(US_FILE)
-    assert len(sources) == 33
+    assert len(sources) == 34
     assert len({s.id for s in sources}) == 33
     assert all(s.url.startswith("https://") for s in sources)
     assert {s.country for s in sources} == {"US"}

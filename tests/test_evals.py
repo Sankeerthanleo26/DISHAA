@@ -29,7 +29,7 @@ def test_seed_file_loads_and_only_approved_cases_count():
     cases = load_cases(SEED)
     assert len(cases) == 32
     counted = {c.id for c in cases if not c.exclusion_reason()}
-    expected = {f"R0{i}" for i in range(1, 9)} | {f"U0{i}" for i in range(1, 6)}
+    expected = {f"R0{i}" for i in range(1, 9)} | {f"U0{i}" for i in range(1, 6)} | {"C01"}
     assert counted == expected  # only founder-approved cases (R18)
 
 

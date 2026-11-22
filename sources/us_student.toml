@@ -80,6 +80,12 @@ visa_category = "f1-employment"
 url = "https://studyinthestates.dhs.gov/students/work/working-in-the-united-states"
 
 [[source]]
+id = "us-ice-employment"
+title = "F-1 Student Employment (ICE SEVP)"
+visa_category = "f1-employment"
+url = "https://www.ice.gov/sevis/employment"
+
+[[source]]
 id = "us-uscis-students-employment"
 title = "Students and Employment (USCIS)"
 visa_category = "f1-employment"
