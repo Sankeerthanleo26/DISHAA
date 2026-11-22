@@ -31,8 +31,8 @@ Non-goals (v0.1)
 | 4 | Freshness scheduler | **Accepted** 2026-11-21 |
 | 5 | Review queue | **Accepted** 2026-11-21 |
 | 6 | Deploy target and IaC | **Accepted** 2026-11-21 |
-| 7 | Eval tooling | **Draft** |
-| 8 | Observability and cost | Not started |
+| 7 | Eval tooling | **Accepted** 2026-11-21 |
+| 8 | Observability and cost | **Draft** |
 
 ## 4. Decision 1: Models
 
@@ -275,7 +275,7 @@ Recommendation: A for v0.1. Revisit B only if the queue grows past what one pers
 
 ## 10. Decision 7: Eval tooling
 
-### 10.1 Decision (draft)
+### 10.1 Decision (accepted 2026-11-21)
 
 Build a small eval harness in our own Python code, in two layers, and run it from pytest and CI.
 
@@ -313,7 +313,53 @@ Recommendation: A. Use B once, as an independent cross-check during the model ba
 - Where the harness stores run reports before the production database exists.
 - Whether to add adversarial and prompt-injection cases to the same harness (R14).
 
-## 11. Sources checked (Nov 21, 2026)
+## 11. Decision 8: Observability and cost
+
+### 11.1 Decision (draft)
+
+Use **CloudWatch** (logs, metrics, alarms, dashboard) for v0.1, defined in Terraform with the rest of the infrastructure (Decision 6). Every request writes one structured log line. Alarms page the founder by email. Add Grafana later as a stretch, reading the same CloudWatch data.
+
+**One structured log line per request** holds: request id, timestamp, pathway and step, the pinned generator and embedder model IDs, latency of each stage (retrieve, generate, validate), token counts and estimated cost, the ids and versions of the retrieved chunks, the outcome (answered, refused, error) with the refusal reason, and the citation-validity result.
+
+**What is never logged:** origin country, the raw question text, or anything that identifies a person (R19, FR-25). We log the question's category (pathway, step) and its length instead. If a user presses "this answer was wrong" and agrees, the question text is attached to that one report for review.
+
+### 11.2 What we watch
+
+| Signal | Why | Alarm |
+|---|---|---|
+| p50 and p95 latency per stage | Slow retrieval or a database resume shows here | p95 above the target set after the first measurement |
+| Error rate | Bedrock throttling, database failures | Above 2% over 15 minutes (starting value) |
+| Refusal rate and refusal reasons | A jump means retrieval broke or a source vanished | Above twice the 7-day average |
+| Cost per answer, Bedrock calls per day against the cap (Decision 6) | The hard cap is in the app, so we watch how close we are | 70% and 90% of the daily and monthly cap |
+| Database resume count and time | The auto-pause delay (Decision 6) | Resume over 30 seconds, or a failed resume |
+| Stale sources, manual pages past their re-capture date | Freshness is the product (Decision 4) | Any core source past its window |
+| Review queue age | One reviewer (R16) | Any pending change older than 7 days |
+| Eval pass rate per release | Quality gates (Decision 7) | Any gate below its threshold blocks the release |
+
+### 11.3 Cost model
+
+Cost per answer = query embedding + generation input tokens + generation output tokens, using a price table kept in configuration and tied to the pinned model IDs. **The prices are unverified** (Decision 1 open item), so the table starts empty and the first task is to fill it from the Bedrock pricing page. Fixed costs to add up in the cost model: the database while awake, API Gateway requests, CloudWatch logs and metrics, and the Terraform state bucket.
+
+### 11.4 Options considered
+
+| Option | For | Against |
+|---|---|---|
+| A. CloudWatch only (recommended) | In the same account, no extra service, alarms and dashboards as code, cheap at this volume | Dashboards are plain; a log query language to learn |
+| B. CloudWatch plus Grafana (Amazon Managed Grafana or Grafana Cloud) | Better dashboards, a skill employers ask about | Another service to run and pay for; not needed to meet a requirement |
+| C. An LLM-observability platform (Langfuse or similar) | Trace view of prompts and retrieved chunks | Stores prompts, which conflicts with not logging questions; another service |
+| D. A full vendor stack (Datadog or similar) | Everything in one place | Cost and lock-in out of proportion to a demo |
+
+Recommendation: A now. Add B once the log lines and metrics exist, because the data comes first and the dashboard is a view over it.
+
+### 11.5 Open items
+
+- Set the latency target after measuring cold starts and resume time (Decision 6 risks).
+- Verify CloudWatch and Bedrock prices before committing to the retention period.
+- Write a one-page runbook for each alarm: what it means, how to check, how to fix.
+- Decide log retention (starting value: 30 days) and what, if anything, is kept longer.
+- Decide what the "answer was wrong" report flow looks like for users and how it enters the eval set.
+
+## 12. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html

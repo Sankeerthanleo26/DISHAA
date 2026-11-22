@@ -372,3 +372,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *App Runner:* closed to new customers.
 
 **Trade-offs:** A paused database can take up to about 15 seconds to resume, handled by the warm-up call, connection retries and a "waking up" message. Lambda cold starts affect the first request after a quiet period. Prices are unverified. Open: region, per-IP limit mechanism behind API Gateway, one account or two.
+
+---
+
+## ADR-027: Evaluate with our own two-layer harness: rule checks and a calibrated judge
+
+**Decision (accepted 2026-11-21):** Build a small eval harness in our own Python code and run it from pytest and CI. Layer 1 is rule checks with no model: retrieval hit, refusal accuracy, cross-country contamination, citation validity and exception traps (required facts present, general rule not stated alone). It runs on every pull request. Layer 2 is a judge model scoring correctness and faithfulness, from a different model family or tier than the generator, run on release candidates and model changes. The judge is calibrated first against 20 hand-labelled cases. Run reports are JSON files committed with the change. Amazon Bedrock Evaluations is used once, as an independent cross-check during the model bake-off. See docs/DESIGN.md section 10.
+
+**Why:** Four of the six gates in the Eval Plan are rules, and the exception-trap gate is 100%. Code is deterministic and cheap, while a judge can be lenient. A case without an official source passage for its expected facts does not count toward any gate (R18).
+
+**Alternatives:**
+- *Bedrock Evaluations only:* judge metrics but no rule checks, and it runs as jobs, which is awkward for a per-PR check.
+- *promptfoo, Ragas or DeepEval:* ready-made, but generic metrics, another dependency, and the exception gate would still need our own assertions.
+
+**Trade-offs:** We write and maintain the harness, and the judge prompt needs calibration. The harness cannot run meaningfully until the 15 unfinished seed rows and 17 drafted cases are reviewed and the missing UCD fee tables are fixed.
