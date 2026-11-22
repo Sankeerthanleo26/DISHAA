@@ -26,7 +26,7 @@ Non-goals (v0.1)
 | # | Decision | Status |
 |---|----------|--------|
 | 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
-| 2 | Vector store (keep pgvector on Postgres?) | Not started |
+| 2 | Vector store (keep pgvector on Postgres) | **Accepted** 2026-11-21 |
 | 3 | PDF handling | Not started |
 | 4 | Freshness scheduler | Not started |
 | 5 | Review queue | Not started |
@@ -94,7 +94,41 @@ Also record cost per answer and p95 latency. Tie-break: the cheaper model that p
 - Confirm that Titan V2 and the chosen generator are available in the deployment region.
 - Decide whether a cross-region inference profile is acceptable for the data we send (no personal data is stored, but questions may contain personal details).
 
-## 5. Sources checked (Nov 21, 2026)
+## 5. Decision 2: Vector store
+
+### 5.1 Decision
+
+Keep pgvector on Postgres (confirms ADR-002 and ADR-004). Use RDS or Aurora PostgreSQL in AWS and Postgres in a container locally, so dev and prod run the same engine.
+
+### 5.2 Why
+
+- The corpus is small (47 sources, a few thousand chunks), far below the scale where a dedicated vector database pays off.
+- Every query filters by pathway, step, country and freshness (ADR-016). Doing that in SQL next to the vectors, with joins to source and review-status tables, is simpler than syncing metadata to a second system.
+- One database holds chunks, sources, change history and the review queue (ADR-017), so a source change and its re-embedding can happen in one transaction.
+- AWS support exists: RDS for PostgreSQL 17 ships pgvector 0.8.x and Aurora PostgreSQL 18.4 (Aug 2026) is on pgvector 0.8.2.
+
+### 5.3 The filtering trap (must be designed for)
+
+With approximate indexes, pgvector applies filters after scanning the index. With HNSW and the default `hnsw.ef_search` of 40, a filter that matches 10% of rows returns about 4 rows on average. Our pathway filter is exactly this case, so a query could silently return too few chunks and the model would then refuse or answer from thin context.
+
+Rules:
+1. Require pgvector 0.8 or newer and set `hnsw.iterative_scan = strict_order` on the retrieval connection, so the index keeps scanning until enough filtered rows are found.
+2. Add a test that every pathway filter returns the requested number of chunks (top-k) when enough matching chunks exist.
+3. At this corpus size an exact scan (no index) is also acceptable and gives perfect recall. Benchmark both on the eval set, and keep the HNSW index only if it is needed for latency.
+4. Consider partial indexes per pathway if filtering by only a few distinct values.
+
+### 5.4 When we would revisit
+
+- Corpus grows past roughly a million chunks, or p95 retrieval latency misses the NFR.
+- We need hybrid keyword and vector ranking beyond what Postgres full-text search gives (one benchmark found hybrid search about 3x slower than pure vector search, so measure before adopting).
+- Embedding dimension rises above the index limits (see decision 1).
+
+### 5.5 Risks
+
+- Silent recall loss from post-filtering (above). Mitigated by the iterative-scan setting and the top-k test.
+- Managed Postgres cost when idle. Revisited in decision 6.
+
+## 6. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html
@@ -103,4 +137,6 @@ Also record cost per answer and p95 latency. Tie-break: the cheaper model that p
 - Claude Sonnet 5.5 model card: https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.html
 - Nova 2 Lite model card: https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-2-lite.html
 - Bedrock pricing: https://aws.amazon.com/bedrock/pricing/
-- pgvector index limits: https://github.com/pgvector/pgvector
+- pgvector index limits and filtering: https://github.com/pgvector/pgvector
+- RDS pgvector versions: https://docs.aws.amazon.com/AmazonRDS/latest/PostgreSQLReleaseNotes/postgresql-extensions.html
+- Aurora PostgreSQL releases: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraPostgreSQLReleaseNotes/AuroraPostgreSQL.Updates.html

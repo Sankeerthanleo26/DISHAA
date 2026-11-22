@@ -258,3 +258,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Pick the generator now:* faster, but unmeasured, and the author of this ADR is a Claude model.
 
 **Trade-offs:** The bake-off needs the eval set filled in first. Model lifecycle dates force periodic re-validation. Status: **accepted** (2026-11-21); generator choice still pending the bake-off. See docs/DESIGN.md section 4.
+
+---
+
+## ADR-019: pgvector retrieval uses iterative scans and a top-k filter test
+
+**Decision:** Retrieval connections require pgvector 0.8 or newer and set `hnsw.iterative_scan = strict_order`. A test asserts that every pathway filter returns the requested number of chunks when enough exist. Exact scan is benchmarked as an alternative at our corpus size.
+
+**Why:** pgvector filters after the approximate index scan, so a narrow pathway filter can return far fewer rows than asked for, which would look like a missing source and trigger a wrong refusal.
+
+**Alternatives:**
+- *Default HNSW settings:* fast, but silently loses recall under filters.
+- *Separate index or table per pathway:* works, but multiplies migrations and indexes.
+
+**Trade-offs:** Iterative scans can be slower on very selective filters. Status: **accepted** (2026-11-21); see docs/DESIGN.md section 5.
