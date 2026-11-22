@@ -2,7 +2,7 @@
 
 *Dishaa* means "direction" in Sanskrit. It is a retrieval-augmented assistant that answers visa and immigration questions using only official sources, with citations. Version 0.1 covers student pathways for Ireland and the USA, on an architecture built to add more destinations.
 
-Docs: [Problem Brief](docs/PROBLEM_BRIEF.md) · [Proposal](docs/PROPOSAL.md) · [PRD](docs/PRD.md) · [Scope](docs/SCOPE.md) · [Decisions](docs/DECISIONS.md) · [Eval Plan](docs/EVAL_PLAN.md) · [Risk Register](docs/RISK_REGISTER.md) · [Source Registry](docs/SOURCE_REGISTRY.md)
+Docs: [Problem Brief](docs/PROBLEM_BRIEF.md) · [Proposal](docs/PROPOSAL.md) · [PRD](docs/PRD.md) · [Scope](docs/SCOPE.md) · [Decisions](docs/DECISIONS.md) · [Eval Plan](docs/EVAL_PLAN.md) · [Risk Register](docs/RISK_REGISTER.md) · [Source Registry](docs/SOURCE_REGISTRY.md) · [University Catalog](docs/UNIVERSITY_CATALOG.md) · [University Sources](docs/UNIVERSITY_SOURCES.md) · [Design Doc](docs/DESIGN.md)
 
 ## Local setup
 
@@ -17,7 +17,15 @@ dishaa-chunk                 # clean the pages and split them into chunks (data/
 pytest
 ```
 
-`dishaa-fetch` reads `sources/ie_student.toml`, obeys each site's robots.txt, waits between requests, and saves the raw pages plus a `manifest.json`. It prints one line per page: `ok`, `blocked_by_robots`, `robots_unreadable` or `error`.
+To fetch and chunk all four lists (Ireland, USA, CU Denver, UCD) in one run, pass them together so the per-country manifest keeps every page:
+
+```bash
+L="sources/ie_student.toml sources/us_student.toml sources/cu_denver.toml sources/ucd.toml"
+dishaa-fetch --sources $L
+dishaa-chunk --sources $L
+```
+
+`dishaa-fetch` reads `sources/ie_student.toml` by default, obeys each site's robots.txt, waits between requests, and saves the raw pages plus a `manifest.json`. It prints one line per page: `ok`, `blocked_by_robots`, `robots_unreadable` or `error`.
 
 `dishaa-chunk` prints one row per page (words, headings, chunks, chunk sizes) and warns about pages that look wrong. To read the chunks of one page: `dishaa-chunk --show student-faq`. Chunk size, minimum size and overlap are adjustable with `--max-tokens`, `--min-tokens` and `--overlap-tokens`.
 

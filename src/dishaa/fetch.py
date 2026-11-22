@@ -155,12 +155,12 @@ def _write_manifests(results: list[FetchResult], out_dir: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     settings = get_settings()
     parser = argparse.ArgumentParser(description="Fetch the curated source pages politely.")
-    parser.add_argument("--sources", default="sources/ie_student.toml")
+    parser.add_argument("--sources", nargs="+", default=["sources/ie_student.toml"])
     parser.add_argument("--out", default="data/raw")
     parser.add_argument("--delay", type=float, default=settings.request_delay_seconds)
     args = parser.parse_args(argv)
 
-    sources = load_sources(args.sources)
+    sources = [s for path in args.sources for s in load_sources(path)]
     with httpx.Client(
         headers={"User-Agent": settings.user_agent},
         timeout=settings.request_timeout_seconds,

@@ -90,7 +90,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Clean the fetched pages and split them into chunks."
     )
-    parser.add_argument("--sources", default="sources/ie_student.toml")
+    parser.add_argument("--sources", nargs="+", default=["sources/ie_student.toml"])
     parser.add_argument("--raw", default="data/raw")
     parser.add_argument("--clean", default="data/clean")
     parser.add_argument("--chunks", default="data/chunks")
@@ -103,7 +103,7 @@ def main(argv: list[str] | None = None) -> int:
     config = ChunkConfig(args.max_tokens, args.min_tokens, args.overlap_tokens)
     reports: list[Report] = []
     shown: list[Chunk] = []
-    for source in load_sources(args.sources):
+    for source in (s for path in args.sources for s in load_sources(path)):
         report, chunks = process_source(
             source, Path(args.raw), Path(args.clean), Path(args.chunks), config
         )
