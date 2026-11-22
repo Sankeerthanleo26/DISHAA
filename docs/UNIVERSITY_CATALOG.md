@@ -22,6 +22,7 @@ Source: IIE Open Doors 2025 International Student Census Tables (2024/25 data), 
 **This file cannot give 500.** Below about 1,000 students only the class top-lists exist, so ranks past 350 are not in this data. Reaching 500 needs another source: IPEDS fall enrollment of U.S. nonresident students covers all institutions (NCES). Our build environment cannot download it, so the founder would need to download it.
 
 Notes:
+- **Ranks 1 to 240 are a true ranking. Ranks 241 to 350 are not**: they are only the top of each institution class, so a school with 900 students in a crowded class may be missing while a school with 90 in a small class is listed. Treat 241 to 350 as "included, order approximate".
 - Names follow Open Doors (for example "Arizona State University - Campus Immersion"), not necessarily the school's own spelling. Official sites are blank until verified.
 - Counts are as reported to Open Doors for 2024/25. Whether Open Doors terms allow republishing the table is not checked: the CSV holds names and counts only and credits IIE, but read their terms before making the repo public.
 
