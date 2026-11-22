@@ -28,6 +28,7 @@ dishaa-migrate = "dishaa.migrate:main"
 dishaa-fetch = "dishaa.fetch:main"
 dishaa-chunk = "dishaa.pipeline:main"
 dishaa-manual = "dishaa.manual:main"
+dishaa-eval = "dishaa.evals.runner:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dishaa"]

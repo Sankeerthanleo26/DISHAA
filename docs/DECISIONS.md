@@ -235,7 +235,7 @@ Each entry records what we chose, why, what else we considered, and what the cho
 
 ## ADR-017: Changed sources go through review before they are served as current
 
-**Decision (proposed):** A detected change in a core-tier source creates a review-queue entry. Until a human approves it, answers relying on that page carry an "update pending review" warning. Approval triggers a regression run of the eval set, and failing evals block the change.
+**Decision (accepted 2026-11-21):** A detected change in a core-tier source creates a review-queue entry. Until a human approves it, answers relying on that page carry an "update pending review" warning. Approval triggers a regression run of the eval set, and failing evals block the change.
 
 **Why:** A silent scraper error or a misparsed page could change answers in a high-stakes domain. Human review plus automatic regression tests keeps the speed of automation without trusting it blindly.
 
@@ -243,13 +243,13 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Auto-publish all changes:* fastest, but a bad parse reaches users.
 - *Block everything until reviewed:* safest, but the system serves outdated rules during review.
 
-**Trade-offs:** Review is manual work and a bottleneck. Supporting-tier sources may be auto-approved later. Status: **proposed**, to be confirmed in the design doc.
+**Trade-offs:** Review is manual work and a bottleneck. Supporting-tier sources may be auto-approved later. Status: **accepted** (2026-11-21); see docs/DESIGN.md section 8.
 
 ---
 
 ## ADR-018: Provisional model choices, validated by bake-off
 
-**Decision (proposed):** Embeddings default to Titan Text Embeddings V2 at 1024 dimensions, normalized, with Cohere Embed v4 as the challenger. The generator is a config value; Claude Haiku 5.5, Claude Sonnet 5.5 and Nova 2 Lite are compared on the eval set and the cheapest model that passes every release gate is chosen. Model IDs and embedding dimension are recorded with every chunk and every answer.
+**Decision (accepted 2026-11-21):** Embeddings default to Titan Text Embeddings V2 at 1024 dimensions, normalized, with Cohere Embed v4 as the challenger. The generator is a config value; Claude Haiku 5.5, Claude Sonnet 5.5 and Nova 2 Lite are compared on the eval set and the cheapest model that passes every release gate is chosen. Model IDs and embedding dimension are recorded with every chunk and every answer.
 
 **Why:** The embedding choice fixes the `vector(...)` dimension, and changing it means re-embedding everything. 1024 matches the existing schema and is well under pgvector's 2,000-dimension HNSW limit. The generator should be chosen on measured refusal and exception-trap scores, not on price or on the author's preference.
 
@@ -291,7 +291,7 @@ Each entry records what we chose, why, what else we considered, and what the cho
 
 ## ADR-021: PDFs stay deferred in v0.1; promotion needs an eval case
 
-**Decision (proposed):** The extractor stays HTML-only (ADR-010). PDFs are listed in the source registry as known gaps, never silently dropped. A PDF is promoted to in-scope only when a specific eval case cannot be answered correctly from HTML sources alone. When that happens, it goes through a separate PDF extractor with page-number citations and a manual check of the extracted text.
+**Decision (accepted 2026-11-21):** The extractor stays HTML-only (ADR-010). PDFs are listed in the source registry as known gaps, never silently dropped. A PDF is promoted to in-scope only when a specific eval case cannot be answered correctly from HTML sources alone. When that happens, it goes through a separate PDF extractor with page-number citations and a manual check of the extracted text.
 
 **Why:** PDF text extraction is lossy (tables, columns, headers and footnotes can be scrambled), and in this domain a scrambled exception is worse than a missing one. Building it before we know which PDFs matter spends effort without evidence.
 
@@ -299,13 +299,13 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Build PDF extraction now:* covers more, but adds an untested and error-prone path before the HTML pipeline has been inspected on real pages.
 - *Ignore PDFs entirely:* risks missing rules that exist only in a PDF, such as the Irish programme criteria and some university fee schedules.
 
-**Trade-offs:** Some answers will say "not sure, check X" where a PDF holds the rule. Status: **proposed**; see docs/DESIGN.md section 6.
+**Trade-offs:** Some answers will say "not sure, check X" where a PDF holds the rule. Status: **accepted** (2026-11-21); see docs/DESIGN.md section 6.
 
 ---
 
 ## ADR-022: A university catalog with a coverage ladder (amends ADR-020)
 
-**Decision (proposed):** Keep a catalog of all target universities (US ranked by international students, all Irish higher-education institutions) with a coverage level per university: listed, registered, curated. Every catalog entry appears in the intake picker. Only registered and curated universities get answers; others get a "not covered yet" reply. Universities move up the ladder in waves, largest international enrolment first, and the pilot (1 to 2) is curated first.
+**Decision (accepted 2026-11-21):** Keep a catalog of all target universities (US ranked by international students, all Irish higher-education institutions) with a coverage level per university: listed, registered, curated. Every catalog entry appears in the intake picker. Only registered and curated universities get answers; others get a "not covered yet" reply. Universities move up the ladder in waves, largest international enrolment first, and the pilot (1 to 2) is curated first.
 
 **Why:** The founder wants all universities covered. Curating hundreds of schools' fee, insurance and payment-plan rules by hand would take longer than the whole v0.1 and push the freshness problem out. A ladder gives users an honest answer for every school on day one and lets coverage grow without a rewrite.
 
@@ -313,13 +313,13 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Curate all before release:* complete, but v0.1 would not ship.
 - *Pilot only, no catalog:* simplest, but ignores the stated goal.
 
-**Trade-offs:** Uncovered schools get a weaker answer. Registered-level sources are not hand-inspected, so they carry a lower-confidence label until promoted. Status: **proposed**; see docs/UNIVERSITY_CATALOG.md.
+**Trade-offs:** Uncovered schools get a weaker answer. Registered-level sources are not hand-inspected, so they carry a lower-confidence label until promoted. Status: **accepted** (2026-11-21); see docs/UNIVERSITY_CATALOG.md.
 
 ---
 
 ## ADR-023: Pages the fetcher cannot read are captured by hand, with provenance
 
-**Decision (proposed 2026-11-21):** When an official page refuses automated requests (HTTP 403) or is built by JavaScript, a person saves it from their own browser into `data/inbox/<source id>.html` and runs `dishaa-manual`. The file is checked (block-page text, too few words), copied next to the fetched pages, and recorded in `manual_manifest.json` with its hash and capture time. The fetcher keeps its honest user agent and obeys robots.txt; it does not pose as a browser to get past a block.
+**Decision (accepted 2026-11-21):** When an official page refuses automated requests (HTTP 403) or is built by JavaScript, a person saves it from their own browser into `data/inbox/<source id>.html` and runs `dishaa-manual`. The file is checked (block-page text, too few words), copied next to the fetched pages, and recorded in `manual_manifest.json` with its hash and capture time. The fetcher keeps its honest user agent and obeys robots.txt; it does not pose as a browser to get past a block.
 
 **Why:** The first real run (2026-11-21) returned 403 for all 14 UCD pages and 5 State Department pages, and left some JavaScript-built pages almost empty. Those include the UCD non-EU fee pages that eval case F01 needs. A person reading a public page in a browser is ordinary use, and the page date and hash are still recorded, so the freshness pipeline works the same way.
 
@@ -328,7 +328,7 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Headless browser for JavaScript pages:* may be right later for pages that stay open to bots; heavy for 19 pages and does not fix a 403.
 - *Ask each university for permission or a feed:* the right long-term route for the pilot schools; slow, so it runs alongside this one.
 
-**Trade-offs:** Manual capture does not scale to hundreds of universities and goes stale silently unless someone re-saves it. The review queue (design decision 5) must treat manual pages as having a capture date and a reminder. Status: **proposed**.
+**Trade-offs:** Manual capture does not scale to hundreds of universities and goes stale silently unless someone re-saves it. The review queue (design decision 5) must treat manual pages as having a capture date and a reminder. Status: **accepted** (2026-11-21).
 
 ---
 
@@ -386,3 +386,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *promptfoo, Ragas or DeepEval:* ready-made, but generic metrics, another dependency, and the exception gate would still need our own assertions.
 
 **Trade-offs:** We write and maintain the harness, and the judge prompt needs calibration. The harness cannot run meaningfully until the 15 unfinished seed rows and 17 drafted cases are reviewed and the missing UCD fee tables are fixed.
+
+---
+
+## ADR-028: Observe with CloudWatch and one structured log line per request; raw question text is logged
+
+**Decision (accepted 2026-11-21):** Use CloudWatch for logs, metrics, alarms and a dashboard, defined in Terraform. Every request writes one structured log line (request id, pathway and step, pinned model IDs, per-stage latency, tokens and cost, retrieved chunk ids and versions, outcome and refusal reason, citation-validity result). Grafana is a later stretch over the same data. By founder decision the **raw question text is logged** and the PII layer is deferred. Origin country is not logged as a field. Free defaults: encryption at rest, founder-only access, 30-day retention. Release gate (R19): no public launch until a PII layer exists (redact before write, with a leak test) or raw logging is off, and a privacy notice says what is kept. See docs/DESIGN.md section 11.
+
+**Why:** The data comes first and dashboards are a view over it. Real questions are the best source of new eval cases.
+
+**Alternatives:**
+- *Redact first, then log:* safer, but the founder chose to defer it.
+- *Langfuse or a vendor stack:* nicer traces, but another service and cost out of proportion to a demo.
+
+**Trade-offs:** Logs can hold personal details until the PII layer exists, so the release gate is binding. Prices for CloudWatch and Bedrock are unverified.

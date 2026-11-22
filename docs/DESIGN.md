@@ -1,6 +1,6 @@
 # DISHAA Design Doc (RFC-001)
 
-Status: **Draft, decision 1 accepted 2026-11-21** · Author: Sankeerthan Sornapoodi (Drona) · Date: 2026-11-21
+Status: **Accepted, all eight decisions 2026-11-21 (open items remain)** · Author: Sankeerthan Sornapoodi (Drona) · Date: 2026-11-21
 Related: [PRD](PRD.md), [Scope](SCOPE.md), [Decisions](DECISIONS.md), [Eval Plan](EVAL_PLAN.md), [Risk Register](RISK_REGISTER.md)
 
 ## 1. Context
@@ -27,12 +27,12 @@ Non-goals (v0.1)
 |---|----------|--------|
 | 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
 | 2 | Vector store (keep pgvector on Postgres) | **Accepted** 2026-11-21 |
-| 3 | PDF handling | **Draft** |
+| 3 | PDF handling | **Accepted** 2026-11-21 |
 | 4 | Freshness scheduler | **Accepted** 2026-11-21 |
 | 5 | Review queue | **Accepted** 2026-11-21 |
 | 6 | Deploy target and IaC | **Accepted** 2026-11-21 |
 | 7 | Eval tooling | **Accepted** 2026-11-21 |
-| 8 | Observability and cost | **Draft** |
+| 8 | Observability and cost | **Accepted** 2026-11-21 |
 
 ## 4. Decision 1: Models
 
@@ -130,7 +130,7 @@ Rules:
 
 ## 6. Decision 3: PDF handling
 
-### 6.1 Decision (draft)
+### 6.1 Decision (accepted 2026-11-21)
 
 Keep v0.1 HTML-only (ADR-010). Track PDFs as known gaps. Promote a PDF only when an eval case needs it (ADR-021).
 
@@ -315,7 +315,7 @@ Recommendation: A. Use B once, as an independent cross-check during the model ba
 
 ## 11. Decision 8: Observability and cost
 
-### 11.1 Decision (draft)
+### 11.1 Decision (accepted 2026-11-21)
 
 Use **CloudWatch** (logs, metrics, alarms, dashboard) for v0.1, defined in Terraform with the rest of the infrastructure (Decision 6). Every request writes one structured log line. Alarms page the founder by email. Add Grafana later as a stretch, reading the same CloudWatch data.
 
