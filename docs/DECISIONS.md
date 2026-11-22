@@ -329,3 +329,17 @@ Each entry records what we chose, why, what else we considered, and what the cho
 - *Ask each university for permission or a feed:* the right long-term route for the pilot schools; slow, so it runs alongside this one.
 
 **Trade-offs:** Manual capture does not scale to hundreds of universities and goes stale silently unless someone re-saves it. The review queue (design decision 5) must treat manual pages as having a capture date and a reminder. Status: **proposed**.
+
+---
+
+## ADR-024: Freshness checks run on a per-tier cadence, starting on GitHub Actions cron
+
+**Decision (accepted 2026-11-21):** A scheduled job runs the existing fetch code on a per-tier cadence (core government every 3 days; core university weekly and daily in the 6 weeks before each term; supporting every 14 days), compares the cleaned-content hash (ADR-011), and reports changes to the review queue. It also checks that each page still holds its expected content (minimum word count; a table for fee pages). Pages that cannot be fetched (ADR-023) get a re-capture due date instead, and a stale-source alert fires when it passes. The job starts on GitHub Actions cron and moves to AWS EventBridge Scheduler once the deploy target is decided. See docs/DESIGN.md section 7.
+
+**Why:** The first real run showed that a page can change while keeping its hash if the extractor drops the changed part, and that some pages cannot be fetched at all. A hash comparison alone would have reported both as "no change".
+
+**Alternatives:**
+- *EventBridge plus Fargate or Lambda now:* closer to production, but depends on the deploy decision and delays the first detected change.
+- *cron on a small server:* simple, but a machine to patch and pay for.
+
+**Trade-offs:** Cloud IP ranges are blocked more often than home connections, so more pages may need manual capture. State between runs needs a home before the production database exists. Cadences are starting values and are tuned from the change log.

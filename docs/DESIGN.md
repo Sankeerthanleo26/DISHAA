@@ -28,8 +28,8 @@ Non-goals (v0.1)
 | 1 | Generation model and embedding model | **Accepted** (generator pick pending bake-off) |
 | 2 | Vector store (keep pgvector on Postgres) | **Accepted** 2026-11-21 |
 | 3 | PDF handling | **Draft** |
-| 4 | Freshness scheduler | **Draft** |
-| 5 | Review queue | Not started |
+| 4 | Freshness scheduler | **Accepted** 2026-11-21 |
+| 5 | Review queue | **Draft** |
 | 6 | Deploy target and IaC | Not started |
 | 7 | Eval tooling | Not started |
 | 8 | Observability and cost | Not started |
@@ -158,7 +158,7 @@ University tuition, fee and payment-plan rules are often published as PDFs or ca
 
 ## 7. Decision 4: Freshness scheduler
 
-### 7.1 Decision (draft)
+### 7.1 Decision (accepted 2026-11-21)
 
 A scheduled job runs the existing `dishaa-fetch` code on a per-tier cadence, compares the cleaned-content hash with the stored one (ADR-011), and writes a row to the review queue (Decision 5) when it differs. Blocked pages (HTTP 403, ADR-023) are not fetched by the job. They get a **re-capture due date**, and the stale-source alert fires when it passes. Start the job on **GitHub Actions cron**; the same command moves to AWS EventBridge Scheduler when Decision 6 settles the deploy target.
 
@@ -195,7 +195,45 @@ Recommendation: A now, B when Decision 6 is made. Keep the job as a plain comman
 - Whether to email UCD, CU Denver and the State Department for permission or a feed. This is the only route that removes the manual list.
 - Decision 5 (review queue) decides what a human sees when the job reports a change.
 
-## 8. Sources checked (Nov 21, 2026)
+## 8. Decision 5: Review queue
+
+### 8.1 Decision (draft)
+
+Each detected change becomes **one pull request in a private corpus repository**. The PR shows the old and new cleaned text of the page side by side, a short machine-written summary of what changed, the affected sources, pathways and steps, and the page's own "last updated" date. CI runs the full eval set on the change. **Merging the PR is the approval**, and the merge records who approved and when (FR-32). Postgres holds the serving state: `pending`, `active` or `superseded` per page version. A page with a `pending` core change is served with the "update pending review" warning (FR-29) until the merge flips it to `active`.
+
+### 8.2 Why
+
+- A pull request already is a review queue: diff view, comments, required checks, an audit trail and a notification, with nothing to build or host.
+- The eval gate (FR-31) maps onto a required CI check, so "drop below threshold blocks the change" is how the tool works, not extra code.
+- It is easy to show: the queue, the reviews and the decisions are public process even though the content is private.
+- It fits one reviewer (R16) and still works if a second reviewer joins.
+
+### 8.3 What the reviewer checks (checklist in every PR)
+
+1. Does the new text say what the page now says? Open the live page and compare.
+2. Is any exception, footnote or table row missing from the new text (R2, and the UCD fee tables)?
+3. Does it contradict another source we hold (R21)? If so, mark "sources differ".
+4. Does the page's own date match the change?
+5. Review checks "matches the source", not "legally correct" (R16). The PR template says so.
+
+### 8.4 Options considered
+
+| Option | For | Against |
+|---|---|---|
+| A. Pull requests in a private corpus repo | No build, audit trail, CI gates, notifications | Needs a private repo; two places hold state (git for content, Postgres for serving); slower than a button |
+| B. Small admin web page | One screen, approve and reject buttons | Real work to build and secure; weaker audit trail; a login to protect |
+| C. Command line plus a Postgres table | Quick to build | No diff view, easy to forget, nothing to show |
+
+Recommendation: A for v0.1. Revisit B only if the queue grows past what one person can handle (R16).
+
+### 8.5 Open items
+
+- **Copyright:** the cleaned text of official pages must not sit in a public repository (the code repository already ignores `data/` for this reason). The corpus repository must be private, or the diffs must live in object storage with only links in the PR.
+- Define the queue size at which an alert fires (R16).
+- Decide how manually captured pages (ADR-023) enter the same flow. The likely answer is the same PR, opened by `dishaa-manual`.
+- Whether a rejected change keeps the old version active and shows a "page changed, review rejected" flag.
+
+## 9. Sources checked (Nov 21, 2026)
 
 - Titan Text Embeddings: https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html
 - Titan V2 dimensions: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-text.html
