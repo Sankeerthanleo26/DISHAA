@@ -68,10 +68,10 @@ def refusal_accuracy(case: Case, ans: Answer) -> CheckResult:
 
 def contamination(case: Case, ans: Answer) -> CheckResult:
     """No retrieved chunk or citation may come from a country other than the destination."""
-    dest = (case.destination or "").casefold()
-    if not dest:
+    allowed = {(case.destination or "").casefold()} | {a.casefold() for a in case.allowed_countries}
+    if not case.destination:
         return CheckResult("contamination", True, "no destination in intake")
-    wrong = sorted({c.country for c in ans.retrieved if c.country.casefold() != dest})
+    wrong = sorted({c.country for c in ans.retrieved if c.country.casefold() not in allowed})
     return CheckResult(
         "contamination", not wrong, f"other countries retrieved: {wrong}" if wrong else ""
     )

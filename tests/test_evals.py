@@ -29,7 +29,11 @@ def test_seed_file_loads_and_only_approved_cases_count():
     cases = load_cases(SEED)
     assert len(cases) == 32
     counted = {c.id for c in cases if not c.exclusion_reason()}
-    expected = {f"R0{i}" for i in range(1, 9)} | {f"U0{i}" for i in range(1, 6)} | {"C01"}
+    expected = (
+        {f"R0{i}" for i in range(1, 9)}
+        | {f"U0{i}" for i in range(1, 6)}
+        | {"C01", "F03", "F12", "F14", "F15"}
+    )
     assert counted == expected  # only founder-approved cases (R18)
 
 
@@ -136,3 +140,11 @@ def test_refusal_notice_and_forbidden_claim_on_refusals():
         "refusal_notice",
         "exception_traps",
     ]
+
+
+def test_explain_not_applicable_may_cite_the_named_other_country():
+    case = make_case(intake={"destination": "IE"}, allowed_countries=["US"])
+    ans = checks.Answer("answered", retrieved=[chunk(country="US")])
+    assert checks.contamination(case, ans).passed
+    other = checks.Answer("answered", retrieved=[chunk(country="CA")])
+    assert not checks.contamination(case, other).passed

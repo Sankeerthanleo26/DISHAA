@@ -30,6 +30,7 @@ class Case:
     must_include_exceptions: list = field(default_factory=list)
     forbidden_claims: list = field(default_factory=list)
     required_notice: str | None = None  # wording a refusal must contain
+    allowed_countries: list = field(default_factory=list)  # explain-not-applicable cases
     source_ids: list = field(default_factory=list)
     status: str = ""
 
@@ -69,6 +70,7 @@ def load_cases(path: Path) -> list[Case]:
                 must_include_exceptions=row.get("must_include_exceptions") or [],
                 forbidden_claims=row.get("forbidden_claims") or [],
                 required_notice=row.get("required_notice"),
+                allowed_countries=row.get("allowed_countries") or [],
                 source_ids=row.get("source_ids") or [],
                 status=row.get("status", ""),
             )
