@@ -29,7 +29,18 @@ def test_seed_file_loads_and_only_approved_cases_count():
     cases = load_cases(SEED)
     assert len(cases) == 32
     counted = {c.id for c in cases if not c.exclusion_reason()}
-    assert counted == {"R01", "R02", "R03", "R04", "R05"}  # only founder-approved cases (R18)
+    assert counted == {
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "U01",
+        "U02",
+    }  # only founder-approved cases (R18)
 
 
 def test_answer_case_without_sources_is_excluded():
