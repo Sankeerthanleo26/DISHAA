@@ -346,10 +346,10 @@ Cost per answer = query embedding + generation input tokens + generation output 
 |---|---|---|
 | A. CloudWatch only (recommended) | In the same account, no extra service, alarms and dashboards as code, cheap at this volume | Dashboards are plain; a log query language to learn |
 | B. CloudWatch plus Grafana (Amazon Managed Grafana or Grafana Cloud) | Better dashboards, a skill employers ask about | Another service to run and pay for; not needed to meet a requirement |
-| C. An LLM-observability platform (Langfuse or similar) | Trace view of prompts and retrieved chunks | Stores prompts, which conflicts with not logging questions; another service |
+| C. An LLM-observability platform (Langfuse or similar) | Trace view of each answer: prompt, retrieved chunks, generation and scores; datasets for evals | Another service. Self-hosted Langfuse is free (MIT) but needs ClickHouse and more to run; Langfuse Cloud has a free Hobby plan but sends traces, which carry the question text, to a third party. (The earlier objection that it stores prompts no longer applies, since raw question text is logged, 2026-11-26.) |
 | D. A full vendor stack (Datadog or similar) | Everything in one place | Cost and lock-in out of proportion to a demo |
 
-Recommendation: A now. Add B once the log lines and metrics exist, because the data comes first and the dashboard is a view over it.
+Recommendation: A now. Add B once the log lines and metrics exist, because the data comes first and the dashboard is a view over it. Revised 2026-11-26: add C later, for reviewing bad answers and turning them into eval cases. Decide after the first answers exist. Traces carry raw question text, so use Langfuse Cloud only after the PII layer (R19), or self-host it.
 
 ### 11.5 Open items
 
@@ -358,6 +358,7 @@ Recommendation: A now. Add B once the log lines and metrics exist, because the d
 - Write a one-page runbook for each alarm: what it means, how to check, how to fix.
 - Decide log retention (starting value: 30 days) and what, if anything, is kept longer.
 - Build the PII layer before any public launch (R19 release gate): choose a redaction tool (verify AWS options), redact before write, and add the leak test to the eval harness.
+- Decide whether and when to add Langfuse (option C): Cloud Hobby or self-hosted, and what it sees (R19). Revisit once the first answers exist.
 - Decide what the "answer was wrong" report flow looks like for users. With raw text logged, real questions can seed new eval cases once reviewed.
 
 ## 12. Sources checked (Nov 21, 2026)

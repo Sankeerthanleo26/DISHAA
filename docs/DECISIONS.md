@@ -397,6 +397,6 @@ Each entry records what we chose, why, what else we considered, and what the cho
 
 **Alternatives:**
 - *Redact first, then log:* safer, but the founder chose to defer it.
-- *Langfuse or a vendor stack:* nicer traces, but another service and cost out of proportion to a demo.
+- *Langfuse or a vendor stack:* nicer traces, but another service to run. Langfuse stays a candidate to add later for trace review and eval-case mining (revised 2026-11-26); traces carry raw question text, so Cloud waits for the PII layer or it is self-hosted. A vendor stack is out of proportion to a demo.
 
 **Trade-offs:** Logs can hold personal details until the PII layer exists, so the release gate is binding. Prices for CloudWatch and Bedrock are unverified.
