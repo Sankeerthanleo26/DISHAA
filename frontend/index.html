@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DISHAA: your AI student immigration assistant</title>
+<meta name="description" content="DISHAA answers student immigration questions from official sources, with citations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page">
+<svg viewBox="0 0 1440 400" id="hero" class="hero" role="img" aria-label="A black airplane flies in from the top right, loops once and comes to rest in the middle of the page">
+<defs>
+<mask id="reveal" maskUnits="userSpaceOnUse" x="0" y="-100" width="1500" height="560">
+<path d="M1500 -60C1300 10 1130 175 900 175C869.6 175 845 199.6 845 230C845 260.4 869.6 285 900 285C930.4 285 955 260.4 955 230C955 199.6 930.4 175 900 175C780 175 600 190 560 270C530 330 590 250 720 250" pathLength="1" fill="none" stroke="#fff" stroke-width="14" stroke-dasharray="1 1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" from="1" to="0" dur="5s" begin="0s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></path>
+</mask>
+</defs>
+<path d="M1500 -60C1300 10 1130 175 900 175C869.6 175 845 199.6 845 230C845 260.4 869.6 285 900 285C930.4 285 955 260.4 955 230C955 199.6 930.4 175 900 175C780 175 600 190 560 270C530 330 590 250 720 250" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 10" mask="url(#reveal)"/>
+<g>
+<animateMotion dur="5s" begin="0s" fill="freeze" rotate="auto" calcMode="spline" keyTimes="0;1" keyPoints="0;1" keySplines="0.4 0 0.2 1" path="M1500 -60C1300 10 1130 175 900 175C869.6 175 845 199.6 845 230C845 260.4 869.6 285 900 285C930.4 285 955 260.4 955 230C955 199.6 930.4 175 900 175C780 175 600 190 560 270C530 330 590 250 720 250"/>
+<g transform="scale(1.25)"><g fill="#000"><path d="M72 0C72-6 54-9 32-9H-48L-64-3V3L-48 9H32C54 9 72 6 72 0Z"/><path d="M22-8L-20-64H-36L-14-8Z"/><path d="M22 8L-20 64H-36L-14 8Z"/><rect x="-14" y="-38" width="24" height="8" rx="4" stroke="#fff" stroke-width="1.5"/><rect x="-14" y="30" width="24" height="8" rx="4" stroke="#fff" stroke-width="1.5"/><path d="M-46-8L-68-26H-78L-64-6Z"/><path d="M-46 8L-68 26H-78L-64 6Z"/></g></g>
+</g>
+</svg>
+<section class="content">
+<h1>Welcome to DISHAA,</h1>
+<p class="tag">your AI student immigration assistant</p>
+<a class="btn" href="#query" id="start">Get started</a>
+<form class="bar" id="ask-form" autocomplete="off">
+<label for="query" class="sr-only">Type your query</label>
+<button class="ib" type="button" id="add-files" aria-label="Add files" disabled title="File upload is not part of v0.1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l9-9a3.7 3.7 0 0 1 5.2 5.2l-9 9a1.8 1.8 0 0 1-2.6-2.6l8.4-8.4"/></svg></button>
+<input id="query" class="q" type="text" placeholder="Type your query" maxlength="1000">
+<button class="ib" type="button" id="mic" aria-label="Speak your query"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+<button class="ib" type="submit" aria-label="Send"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+</form>
+<section class="answer" id="answer" aria-live="polite" hidden>
+<p id="answer-text"></p>
+<ul id="citations" class="cites"></ul>
+<p class="note">Not legal advice. Check the official source before you act.</p>
+</section>
+</section>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
